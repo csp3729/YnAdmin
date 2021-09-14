@@ -3,11 +3,21 @@
     <div class="title">Commodity - List</div>
     <el-button type="primary" icon="el-icon-edit" plain @click="open">消息1</el-button>
     <el-button type="primary" icon="el-icon-edit" @click="open1">桌面通知</el-button>
+    <div>
+      <el-switch v-model="state.switch1" interior active-text="是" inactive-text="否" :width="40"></el-switch>
+      <el-switch v-model="state.switch2" interior active-text="是是" inactive-text="否否" :width="60"></el-switch>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { reactive } from 'vue';
 import { ElNotification } from 'element-plus';
+
+const state = reactive({
+  switch1: false,
+  switch2: true,
+});
 
 const open = () => {
   ElNotification({

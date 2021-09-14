@@ -7,3 +7,28 @@
 .el-button--text:hover {
   opacity: .8;
 }
+
+.el-switch[interior] {
+  .el-switch__label {
+    position: absolute;
+    display: none;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    z-index: 1;
+    &--left {
+      color: #303133;
+      padding-left: 11px;
+    }
+    &--right {
+      color: #FFF;
+      padding-right: 11px;
+    }
+  }
+  .el-switch__label.is-active {
+    display: block;
+  }
+  .el-switch__action {
+    z-index: 1;
+  }
+}

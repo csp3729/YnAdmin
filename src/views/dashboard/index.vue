@@ -6,7 +6,7 @@
       </template>
       <el-button type="primary" @click="select">图库选择</el-button>
     </UploadImage> -->
-    <SearchTool v-model="state.form" :items="state.items" @handle-search="handleRefresh" />
+    <SearchForm v-model="state.form" :items="state.items" @handle-search="handleRefresh" />
     <Table :headers="headers" :data="state.data" :tool="!false" title="" :refresh="handleRefresh" @edit="handleEdit">
       <template #tool>
         <el-button size="mini" type="text" icon="el-icon-folder-add" class="fs20"></el-button>

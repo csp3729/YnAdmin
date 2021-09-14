@@ -3,7 +3,7 @@
     <div class="header-left df fai-c">
       <template v-if="$store.getters.layout !== 'lm'">
         <img class="mr10" src="@/assets/logo.png" width="28" height="28" >
-        <h2 class="mr30">Header</h2>
+        <h2 class="mr30">YnAdmin</h2>
       </template>
     </div>
     <div class="header-center flex1">

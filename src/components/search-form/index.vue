@@ -1,16 +1,45 @@
 <template>
   <div class="search-tool">
     <div class="tool-content df" :style="{ height: height }">
-      <el-form class="df flex1 fw-w" :model="form" label-width="100px">
-        <template v-for="(t, i) in items" :key="i">
-          <el-form-item class="tool-item" :label="t.label">
-            <slot v-if="t.slot" :name="t.slot"></slot>
-            <el-select v-else-if="t.type === 'select'" class="w100" v-model="form[t.prop]">
-              <el-option  v-for="opt in t.options" :key="opt.value" :label="opt.label" :value="opt.value" />
-            </el-select>
-            <el-input v-else v-model="form[t.prop]"></el-input>
-          </el-form-item>
-        </template>
+      <el-form class="df flex1 fw-w" :model="form" :label-width="labelWidth">
+        <el-form-item class="tool-item" v-for="(item, index) in items" :key="index" :label="item.label">
+          <slot v-if="item.slot" :name="item.slot" />
+          <el-select
+            class="w100"
+            v-if="item.type === 'select'"
+            v-model="form[item.prop]"
+            :placeholder="item.placeholder"
+            clearable>
+            <el-option
+              v-for="opt in item.options"
+              :key="opt.value"
+              :label="opt.label"
+              :value="opt.value" />
+          </el-select>
+          <el-time-picker
+            v-else-if="item.type === 'time'"
+            v-model="form[item.prop]"
+            :placeholder="item.placeholder"
+            clearable
+            :editable="false"
+            :format="item.format"
+            @change="selectAutoSubmit && handleSearch" />
+          <el-date-picker
+            v-else-if="item.type === 'date'"
+            v-model="form[item.prop]"
+            :placeholder="item.placeholder"
+            :type="item.dateType"
+            clearable
+            :editable="false"
+            :format="item.format"
+            :default-value="item.defaultValue"
+            @change="selectAutoSubmit && handleSearch" />
+          <el-input
+            v-else
+            v-model="form[item.prop]"
+            :placeholder="item.placeholder"
+            clearable />
+        </el-form-item>
         <div v-if="state.more && state.open" class="tool-btns flex1 tr">
           <el-button @click="clear">清空</el-button>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
@@ -38,10 +67,15 @@ const props = defineProps({
     default: () => [],
   },
   defaultOpen: Boolean,
+  labelWidth: {
+    type: String,
+    default: '80px',
+  },
   modelValue: {
     type: Object,
     default: () => ({}),
   },
+  selectAutoSubmit: Boolean,
 });
 
 const emit = defineEmits(['handleSearch', 'update:modelValue']);
