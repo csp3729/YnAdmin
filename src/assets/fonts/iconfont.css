@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "ynfont"; /* Project id 1075173 */
+  src: url('iconfont.woff2?t=1625556782241') format('woff2'),
+       url('iconfont.woff?t=1625556782241') format('woff'),
+       url('iconfont.ttf?t=1625556782241') format('truetype');
+}
+
+.ynfont {
+  font-family: "ynfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.yn-icon-logo1:before {
+  content: "\e602";
+}
+
+.yn-icon-sousuoqingchu1:before {
+  content: "\e618";
+}
+
+.yn-icon-caidan:before {
+  content: "\e612";
+}
+
+.yn-icon-logo:before {
+  content: "\e613";
+}
+
+.yn-icon-daV:before {
+  content: "\e614";
+}
+
+.yn-icon-fanhuidingbu:before {
+  content: "\e615";
+}
+
+.yn-icon-sousuo:before {
+  content: "\e60d";
+}
+
+.yn-icon-renminbi-xiala:before {
+  content: "\e60e";
+}
+
+.yn-icon-shanchu:before {
+  content: "\e60f";
+}
+
+.yn-icon-kuaixunshijiandian:before {
+  content: "\e610";
+}
+
+.yn-icon-sousulishi-shanchu:before {
+  content: "\e611";
+}
+
+.yn-icon-wushuju-banping:before {
+  content: "\e608";
+}
+
+.yn-icon-wushuju:before {
+  content: "\e609";
+}
+
+.yn-icon-sousuoqingchu:before {
+  content: "\e60a";
+}
+
+.yn-icon-sousuo-huise:before {
+  content: "\e60b";
+}
+
+.yn-icon-sousuokuangguanbi:before {
+  content: "\e60c";
+}
+
+.yn-icon-xialacaidan:before {
+  content: "\e605";
+}
+
+.yn-icon-yanzhengmacuowu:before {
+  content: "\e606";
+}
+
+.yn-icon-zuixinjiahongse:before {
+  content: "\e601";
+}
+
+.yn-icon-zhuanjia:before {
+  content: "\e603";
+}
+
+.yn-icon-zuixinjiapaixu:before {
+  content: "\e600";
+}
+

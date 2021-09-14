@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+ol, ul {
+  list-style-position: outside;
+  list-style-type: none;
+  list-style-image: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  /*滚动条里面小方块*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #ccc;
+    opacity: 0.5;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #409eff;
+  }
+  div:focus {
+    outline: none;
+  }
+}

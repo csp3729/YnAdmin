@@ -1,0 +1,9 @@
+@import './base.scss';
+@import './common.scss';
+@import './flex.scss';
+@import './transition.scss';
+
+/* element 样式覆盖 */
+.el-button--text:hover {
+  opacity: .8;
+}

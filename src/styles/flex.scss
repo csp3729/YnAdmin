@@ -1,0 +1,129 @@
+.df {
+  display: flex;
+  display: -webkit-flex;
+}
+
+.df-sb {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+}
+
+.df-cc {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  align-items: center;
+  // align-content: center;
+}
+
+.df-sb-cc {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+  // align-content: center;
+}
+
+// flex-direction
+.fd-r {
+  flex-direction: row; // 默认值
+}
+
+.fd-rr {
+  flex-direction: row-reverse;
+}
+
+.fd-c {
+  flex-direction: column;
+}
+
+.fd-cr {
+  flex-direction: column-reverse;
+}
+
+// flex-wrap
+.fw-n {
+  flex-wrap: nowrap; //默认值
+}
+
+.fw-w {
+  flex-wrap: wrap;
+}
+
+.fw-wr {
+  flex-wrap: wrap-reverse;
+}
+
+//  justify-content
+.fjc-fs {
+  justify-content: flex-start; // 默认值
+}
+
+.fjc-fe {
+  justify-content: flex-end;
+}
+
+.fjc-c {
+  justify-content: center;
+}
+
+.fjc-sb {
+  justify-content: space-between;
+}
+
+.fjc-sa {
+  justify-content: space-around;
+}
+
+// align-items
+.fai-fs {
+  align-items: flex-start;
+}
+
+.fai-fe {
+  align-items: flex-end;
+}
+
+.fai-c {
+  align-items: center;
+}
+
+.fai-b {
+  align-items: baseline;
+}
+
+.fai-s {
+  align-items: stretch; // 默认值
+}
+
+// align-content
+.fac-fs {
+  align-content: flex-start;
+}
+
+.fac-fe {
+  align-content: flex-end;
+}
+
+.fac-c {
+  align-content: center;
+}
+
+.fac-sb {
+  align-content: space-between;
+}
+
+.fac-sa {
+  align-content: space-around;
+}
+
+.fac-s {
+  align-content: stretch; // 默认值
+}
+
+@for $i from 1 through 12 {
+  .flex#{$i} {
+    flex: #{$i};
+  }
+}
