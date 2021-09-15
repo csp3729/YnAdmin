@@ -28,8 +28,8 @@ const http = inject('http');
 const state = reactive({
   form: {},
   items: [
-    { prop: 'name', label: '名字' },
-    { label: '年龄', prop: 'age' },
+    { model: 'name', label: '名字', type: 'select' },
+    { label: '年龄', model: 'age' },
   ],
   paging: {},
   fileList: [

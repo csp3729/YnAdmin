@@ -7,7 +7,7 @@
           <el-select
             class="w100"
             v-if="item.type === 'select'"
-            v-model="form[item.prop]"
+            v-model="form[item.model]"
             :placeholder="item.placeholder"
             clearable>
             <el-option
@@ -18,7 +18,7 @@
           </el-select>
           <el-time-picker
             v-else-if="item.type === 'time'"
-            v-model="form[item.prop]"
+            v-model="form[item.model]"
             :placeholder="item.placeholder"
             clearable
             :editable="false"
@@ -26,7 +26,7 @@
             @change="selectAutoSubmit && handleSearch" />
           <el-date-picker
             v-else-if="item.type === 'date'"
-            v-model="form[item.prop]"
+            v-model="form[item.model]"
             :placeholder="item.placeholder"
             :type="item.dateType"
             clearable
@@ -36,7 +36,7 @@
             @change="selectAutoSubmit && handleSearch" />
           <el-input
             v-else
-            v-model="form[item.prop]"
+            v-model="form[item.model]"
             :placeholder="item.placeholder"
             clearable />
         </el-form-item>
