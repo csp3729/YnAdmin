@@ -1,13 +1,13 @@
 <template>
-  <div>Commodity - Brand</div>
+  <div>
+    Table
+  </div>
 </template>
-
 <script>
 export default {
 
 };
 </script>
-
-<style>
+<style lang="">
 
 </style>

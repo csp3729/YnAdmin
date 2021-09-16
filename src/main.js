@@ -21,7 +21,7 @@ import './styles/index.scss';
 
 import App from './App.vue';
 
-if (import.meta.env.DEV) window.YN_ADMIN_MOCK = true;
+// if (import.meta.env.DEV) window.YN_ADMIN_MOCK = true;
 
 createApp(App)
   .provide('http', apis)

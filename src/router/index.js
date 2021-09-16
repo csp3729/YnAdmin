@@ -7,6 +7,8 @@ import Login from '@vws/login/index.vue';
 import hasUserAuth from '@uts/permission';
 import store from '../store';
 
+import modules from './module';
+
 const constantRouterMap = [
   {
     path: '/login',
@@ -21,16 +23,16 @@ const constantRouterMap = [
     component: () => import('@vws/common/lock/index.vue'),
   },
   {
-    path: '/404',
-    name: '404',
-    meta: { title: '页面不存在' },
-    component: () => import('@vws/common/error/404.vue'),
-  },
-  {
     path: '/401',
     name: '401',
-    meta: { title: '无权限' },
+    meta: { title: '401' },
     component: () => import('@vws/common/error/401.vue'),
+  },
+  {
+    path: '/404',
+    name: '404',
+    meta: { title: '404' },
+    component: () => import('@vws/common/error/404.vue'),
   },
   {
     path: '/',
@@ -45,6 +47,7 @@ const constantRouterMap = [
       },
     ],
   },
+  ...modules,
 ];
 
 const router = createRouter({
@@ -53,8 +56,9 @@ const router = createRouter({
   routes: constantRouterMap,
 });
 
-const white = ['Dashboard', '401', '404'];
+// const white = ['Dashboard', '401', '404'];
 
+// 旧的写法
 // router.beforeEach(async (to, from, next) => {
 //   NProgress.start();
 //   const { token, isLock, authRoutes } = store.getters;
@@ -78,29 +82,30 @@ const white = ['Dashboard', '401', '404'];
 //   NProgress.done();
 // });
 
-router.beforeEach(async (to, from) => {
-  NProgress.start();
-  const { token, isLock, authRoutes } = store.getters;
-  const path = await (function () {
-    if (token) {
-      if (isLock && to.name !== 'Lock') return { name: 'Lock' };
-      if ((!isLock && to.name === 'Lock') || to.name === 'Login') return { path: '/' };
-      if (!authRoutes) return hasUserAuth().then(() => to.fullPath);
-      // if (white.includes(to.name)) {
-      //   hasUserAuth();
-      //   return true;
-      // }
-      if (white.includes(to.name)) return true;
-      if (!authRoutes.includes(to.meta.code)) return { name: '401' };
-      return true;
-    } if (to.name !== 'Login') {
-      return { name: 'Login' };
-    }
-    return true;
-  }());
-  NProgress.done();
-  return path;
-});
+// 新的写法
+// router.beforeEach(async (to, from) => {
+//   NProgress.start();
+//   const { token, isLock, authRoutes } = store.getters;
+//   const path = await (function () {
+//     if (token) {
+//       if (isLock && to.name !== 'Lock') return { name: 'Lock' };
+//       if ((!isLock && to.name === 'Lock') || to.name === 'Login') return { path: '/' };
+//       if (!authRoutes) return hasUserAuth().then(() => to.fullPath);
+//       // if (white.includes(to.name)) {
+//       //   hasUserAuth();
+//       //   return true;
+//       // }
+//       if (white.includes(to.name)) return true;
+//       if (!authRoutes.includes(to.meta.code)) return { name: '401' };
+//       return true;
+//     } if (to.name !== 'Login') {
+//       return { name: 'Login' };
+//     }
+//     return true;
+//   }());
+//   NProgress.done();
+//   return path;
+// });
 
 export { constantRouterMap };
 

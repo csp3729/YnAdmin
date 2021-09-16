@@ -62,7 +62,7 @@ import {
 } from 'vue';
 import md5 from 'js-md5';
 import { store, router } from '@uts/instance';
-import { encryptor, decrypt, local } from '@uts';
+import { encrypt, decrypt, local } from '@uts';
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 const http = inject('http');
@@ -95,7 +95,7 @@ if (recordData) {
   state.record = record;
 }
 
-const handleSend = () => {
+function handleSend() {
   if (state.time) return;
   unref(loginForm).validateField('phone', (msg) => {
     if (!msg) {
@@ -111,23 +111,23 @@ const handleSend = () => {
       }, 1000);
     }
   });
-};
+}
 
-const handleForget = () => {
+function handleForget() {
   state.showResetPwd = true;
-};
+}
 
-const handleLogin = () => {
+function handleLogin() {
   unref(loginForm).validate(async (valid) => {
     if (valid) {
       state.loading = true;
       const { code, ...data } = state.form;
       if (state.record) {
-        local.set('YN_ADMIN_LOGIN', { ...data, password: encryptor(data.password), record: true });
+        local.set('YN_ADMIN_LOGIN', { ...data, password: encrypt(data.password), record: true });
       } else {
         local.remove('YN_ADMIN_LOGIN');
       }
-      http.login({ ...state.form, password: md5(state.form.password), loginSource: 'web' }).then((res) => {
+      http.login({ ...state.form, password: md5(state.form.password) }).then((res) => {
         console.log(res);
         const { accessToken: { accessToken }, userInfo } = res;
         store.dispatch('SetToken', accessToken);
@@ -141,9 +141,9 @@ const handleLogin = () => {
   });
   // getRoutes();
   // promiseAll();
-};
+}
 
-const promiseAll = () => {
+function promiseAll() {
   Promise.all([http.getRoutes(), http.getUserAuth()]).then((res) => {
     console.log(res);
     const routes = res[0];
@@ -151,22 +151,22 @@ const promiseAll = () => {
   }).catch(() => {
     console.log('用户权限获取失败，请重新登录');
   });
-};
+}
 
-const getRoutes = () => {
+function getRoutes() {
   http.getRoutes().then((res) => {
     console.log(res);
   });
-};
+}
 
-const getUserAuth = (userId) => {
+function getUserAuth(userId) {
   http.getUserMenus({ userId }).then((res) => {
     console.log(res);
     nextTick(() => router.push('/'));
   });
-};
+}
 
-const handleEnv = () => {
+function handleEnv() {
   if (import.meta.env.DEV) {
     const mock = window.YN_ADMIN_MOCK;
     ElMessageBox.confirm(`当前数据源：${mock ? 'mock数据' : '后端数据'}，是否切换数据源？`, '切换数据源', {
@@ -179,7 +179,7 @@ const handleEnv = () => {
       ElMessage.info('已取消操作');
     });
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

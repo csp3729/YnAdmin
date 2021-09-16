@@ -1,38 +1,28 @@
 <template>
   <div>
-    <div class="title">Commodity - List</div>
-    <el-button type="primary" icon="el-icon-edit" plain @click="open">消息1</el-button>
-    <el-button type="primary" icon="el-icon-edit" @click="open1">桌面通知</el-button>
-    <div>
-      <el-switch v-model="state.switch1" interior active-text="是" inactive-text="否" :width="40"></el-switch>
-      <el-switch v-model="state.switch2" interior active-text="是是" inactive-text="否否" :width="60"></el-switch>
-    </div>
+    <el-button type="primary" @click="send1">页面通知</el-button>
+    <el-button type="primary" @click="send2">桌面通知</el-button>
+    <el-button type="primary">根据状态通知</el-button>
   </div>
 </template>
-
 <script setup>
-import { reactive } from 'vue';
 import { ElNotification } from 'element-plus';
 
-const state = reactive({
-  switch1: false,
-  switch2: true,
-});
-
-const open = () => {
+function send1() {
   ElNotification({
     title: '您有新消息', message: '显示消息', offset: 120,
   });
-};
+}
 
-const open1 = () => {
+const send2 = () => {
   notification('您有新消息！', {
     // 通知显示正文。非必须，默认为空
     body: '你的好友XX上线了！',
     // 通知显示正文的图片地址。非必须，默认为空
     // image: 'imgae url',
     // 通知左侧图标。非必须，默认为空
-    icon: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fi0.sinaimg.cn%2FIT%2F2009%2F1116%2F2009111674122.jpg&refer=http%3A%2F%2Fi0.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630134265&t=03ed7ca3d713b35e2a6587c50f45beaa',
+    icon: 'https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=logo&hs=0&pn=0&spn=0&di=3110&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=1872160437%2C2900547901&os=1157975325%2C4192909618&simid=4171318505%2C510283613&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=&bdtype=11&oriquery=logo&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fpic1.jobui.com%2FcompanyLogo%2F15110%2F14290652223386.png!msq%26refer%3Dhttp%3A%2F%2Fpic1.jobui.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1634355884%26t%3D88e579f755cdd1e477ccfb6d8253d2fc&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B35k7t_z%26e3Bv54AzdH3Fv54rwgyAzdH3F8n9dlc8nAzdH3Ffwsw6yAzdH3Fk5fit&gsm=1&islist=&querylist=',
+    // icon: '@/assets/logo.png',
     // 通知的分类标记（ID）。非必须，默认为空
     tag: '',
     // 通知相关联的数据，通常用于方法的回调，传参。非必须，默认为空
@@ -57,10 +47,10 @@ const open1 = () => {
     noscreen: false,
     // 指定通知是否应该粘滞性，即不容易被用户清理。非必须，默认false表示不具粘滞性
     sticky: false,
-    // 指定通知是否保持活性，知道用户点击或关闭。非必须，默认为false
+    // 指定通知是否保持活性，直到用户点击或关闭。非必须，默认为false
     requireInteraction: false,
     unique: true,
-    duration: 4500,
+    // duration: 4500,
   });
 };
 
@@ -82,13 +72,12 @@ const notification = (title, options) => {
         }, duration);
       }
     }
+    if (status === 'denied') {
+      console.log('用户拒绝了推送');
+    }
   });
 };
-
 </script>
-
 <style lang="scss" scoped>
-.title {
-  // color: $--color-primary;
-}
+
 </style>

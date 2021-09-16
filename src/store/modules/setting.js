@@ -1,6 +1,6 @@
 const state = {
   layout: 'lm',
-  theme: '#409eff',
+  theme: '#409EFF',
   headerHeight: 50,
   topMenuPlace: 'center',
   menuColor: '',

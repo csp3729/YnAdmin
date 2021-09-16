@@ -7,7 +7,7 @@
       :unique-opened="unique"
       :default-active="$route.path"
       :collapse="isCollapse">
-      <el-menu-item class="menu-item-logo" v-if="showLogo" disabled>
+      <el-menu-item class="menu-item--logo" v-if="showLogo" disabled>
         <img src="@/assets/logo.png" width="28" height="28" >
         <span class="logo-title">YnAdmin</span>
       </el-menu-item>
@@ -21,7 +21,10 @@
             <i :class="t.meta?.icon"></i>
             <span>{{ t.meta.title }}</span>
           </template>
-          <el-menu-item v-for="child, in t.children" :key="child.path" :index="`${t.path}/${child.path}`">{{ child.meta.title }}</el-menu-item>
+          <el-menu-item v-for="child in t.children" :key="child.path" :index="`${t.path}/${child.path}`">
+            <i :class="child.meta?.icon"></i>
+            <span>{{ child.meta.title }}</span>
+          </el-menu-item>
         </el-sub-menu>
       </template>
       <el-menu-item v-if="showCollapse" class="menu-collapse">
@@ -37,6 +40,8 @@ import { filterAuthRoutes } from '@uts/permission';
 
 import { YnCollapse } from '@com/btns';
 
+import menus from '../../config/menus';
+
 const mode = computed(() => (store.getters.layout === 'tm' ? 'horizontal' : 'vertical'));
 
 const topMenuPlace = computed(() => store.getters.topMenuPlace);
@@ -49,12 +54,13 @@ const showCollapse = computed(() => store.getters.layout !== 'tm' && store.gette
 
 const showLogo = computed(() => store.getters.layout === 'lm');
 
-const menus = computed(() => {
-  const { routes, authRoutes } = store.getters;
-  const routesMap = filterAuthRoutes(routes, authRoutes);
-  routesMap.unshift({ path: '/dashboard', meta: { title: '主控面板', icon: 'el-icon-s-operation' } });
-  return routesMap;
-});
+// const menus = computed(() => {
+//   const { routes, authRoutes } = store.getters;
+//   const routesMap = filterAuthRoutes(routes, authRoutes);
+//   routesMap.unshift({ path: '/dashboard', meta: { title: '主控面板', icon: 'el-icon-s-operation' } });
+//   return routesMap;
+// });
+
 const color = computed(() => {
   const defaultColor = { background: '', text: '' };
   const { layout, menuColor } = store.getters;
@@ -122,7 +128,7 @@ const color = computed(() => {
     }
 
   }
-  .menu-item-logo {
+  .menu-item--logo {
     opacity: 1;
     cursor: auto;
     img {

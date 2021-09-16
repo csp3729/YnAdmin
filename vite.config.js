@@ -6,7 +6,7 @@ const { resolve } = require('path');
 
 // https://vitejs.dev/config/
 export default ({ mode }) => defineConfig({
-  plugins: [vue(), vite2Ext({})],
+  plugins: [vue(), vite2Ext({ prefix: '/adminApi' })],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -25,7 +25,6 @@ export default ({ mode }) => defineConfig({
         target: loadEnv(mode, process.cwd()).VITE_DOMAIN_URL,
         rewrite: (path) => path.replace(/^\/adminApi/, ''),
       },
-      '/api': 'http://localhost:3000/api',
     },
   },
   css: {

@@ -1,13 +1,13 @@
 <template>
-  <div>Commodity - Images</div>
+  <div>
+    Allocation
+  </div>
 </template>
-
 <script>
 export default {
 
 };
 </script>
-
-<style>
+<style lang="">
 
 </style>

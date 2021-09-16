@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { store, router } from '@uts/instance';
-import { tranForm } from '@uts';
 
 // 创建实例
 const service = axios.create({
@@ -13,11 +12,6 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   (config) => {
-    if (window.YN_ADMIN_MOCK) {
-      config.baseURL = '/api';
-    } else if (config.method === 'post' && config.data) {
-      config.data = tranForm(config.data);
-    }
     config.headers = {
       ...config.headers,
       Authorization: store.getters.token,

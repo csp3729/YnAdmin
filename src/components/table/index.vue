@@ -47,7 +47,7 @@
 
 <script setup>
 import {
-  reactive, ref, unref, computed, watch, nextTick, onMounted, onUnmounted, defineProps, defineEmits,
+  reactive, ref, unref, computed, watch, nextTick, onMounted, onUnmounted, defineProps, defineEmits, onBeforeUpdate,
 } from 'vue';
 import elResize from 'element-resize-detector';
 import { store } from '@uts/instance';
@@ -108,6 +108,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', setHeight);
   if (searchTool) erd.removeListener(searchTool, setHeight);
+});
+
+onBeforeUpdate(() => {
+  nextTick(() => unref(tableRef).doLayout());
 });
 
 const actor = ['footer', 'headerHeight', 'breadcrumb', 'breadPlace'];
