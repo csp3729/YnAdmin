@@ -2,7 +2,7 @@ import { ElMessageBox } from 'element-plus';
 
 import { router, store } from '@uts/instance';
 import Layout from '@com/layout/index.vue';
-import http from '../api';
+import http from '@/api';
 
 export function filterAuthRoutes(routes, auths) {
   return routes.filter((route) => {
@@ -34,7 +34,7 @@ function loadRoutes(routes) {
 export default function hasUserAuth() {
   return new Promise((resolve, reject) => {
     Promise.all([http.getRoutes(), http.getUserAuth()]).then((res) => {
-      const [routes, auth] = res;
+      const [routes = [], auth = []] = res;
       if (!auth.length) {
         ElMessageBox.alert('未检测到您的授权信息，请先联系管理员为您授权。', '提示', {
           confirmButtonText: '确定',

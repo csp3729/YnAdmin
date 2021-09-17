@@ -1,4 +1,4 @@
-import { constantRouterMap } from '../../router';
+import { constantRouterMap } from '@/router';
 
 export default {
   state: {

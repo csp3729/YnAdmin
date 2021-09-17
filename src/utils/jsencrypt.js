@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import JSEncrypt from 'jsencrypt';
 
 const jsencrypt = new JSEncrypt();

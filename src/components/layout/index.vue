@@ -16,8 +16,7 @@
         </el-aside>
         <el-container class="layout-contnet" direction="vertical">
           <Breadcrumb v-if="showBread('main')" class="pl12" />
-          <el-main class="layout-main ma10 pa10 bgW">
-            <!-- df fd-c 到底要不要做flex呢? -->
+          <el-main class="layout-main df fd-c ma10 pa10 bgW">
             <router-view v-slot="{ Component }">
               <transition name="el-fade-in-linear" mode="out-in">
                 <component :is="Component" />

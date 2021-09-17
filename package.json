@@ -9,7 +9,6 @@
   "dependencies": {
     "apite": "^1.2.4",
     "axios": "^0.21.1",
-    "babel-eslint": "^10.1.0",
     "element-plus": "^1.1.0-beta.12",
     "element-resize-detector": "^1.2.3",
     "js-md5": "^0.7.3",

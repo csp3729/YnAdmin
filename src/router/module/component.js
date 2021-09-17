@@ -9,13 +9,13 @@ export default {
     {
       path: 'search',
       name: 'Search',
-      meta: { title: '权限配置' },
+      meta: { title: '搜索工具' },
       component: () => import('@vws/component/search.vue'),
     },
     {
       path: 'table',
       name: 'Table',
-      meta: { title: '权限配置' },
+      meta: { title: '表格' },
       component: () => import('@vws/component/table.vue'),
     },
   ],

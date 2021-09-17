@@ -11,8 +11,8 @@ export default [
     path: '/component',
     meta: { title: '组件', icon: 'el-icon-files' },
     children: [
-      { path: 'search', meta: { title: '搜索工具', icon: '' } },
-      { path: 'table', meta: { title: '表格', icon: '' } },
+      { path: 'search', meta: { title: 'search-form', icon: '' } },
+      { path: 'table', meta: { title: 'table', icon: '' } },
     ],
   },
   {

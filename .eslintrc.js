@@ -7,7 +7,6 @@ module.exports = {
   extends: ['plugin:vue/vue3-recommended', 'airbnb-base'],
   parserOptions: {
     ecmaVersion: 12,
-    parser: 'babel-eslint',
   },
   globals: {
     defineProps: 'readonly',
@@ -34,14 +33,12 @@ module.exports = {
     'no-shadow': ['error', { allow: ['state'] }], // 允许对其进行阴影处理
     // 'class-methods-use-this': 'off', // 自己加的，忘记是啥了
   },
-  overrides: [
-    {
-      files: ['*.vue', '*.js'],
-      rules: {
-        // 这里写覆盖vue文件的规则
-        'vue/max-attributes-per-line': 'off', // 关闭强制标签属性换行
-        'vue/singleline-html-element-content-newline': 'off', // 关闭强制标签内容换行
-      },
+  overrides: [{
+    files: ['*.vue', '*.js'],
+    rules: {
+      // 这里写覆盖vue文件的规则
+      'vue/max-attributes-per-line': 'off', // 关闭强制标签属性换行
+      'vue/singleline-html-element-content-newline': 'off', // 关闭强制标签内容换行
     },
-  ],
+  }],
 };

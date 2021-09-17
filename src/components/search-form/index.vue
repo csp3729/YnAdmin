@@ -8,7 +8,7 @@
             v-if="item.type === 'select'"
             v-model="form[item.model]"
             class="w100"
-            :placeholder="item.placeholder"
+            :placeholder="item.placeholder || `请选择${item.label}`"
             clearable
           >
             <el-option
@@ -21,7 +21,7 @@
           <el-time-picker
             v-else-if="item.type === 'time'"
             v-model="form[item.model]"
-            :placeholder="item.placeholder"
+            :placeholder="item.placeholder || `请选择${item.label}`"
             clearable
             :editable="false"
             :format="item.format"
@@ -30,7 +30,7 @@
           <el-date-picker
             v-else-if="item.type === 'date'"
             v-model="form[item.model]"
-            :placeholder="item.placeholder"
+            :placeholder="item.placeholder || `请选择${item.label}`"
             :type="item.dateType"
             clearable
             :editable="false"
@@ -41,21 +41,23 @@
           <el-input
             v-else
             v-model="form[item.model]"
-            :placeholder="item.placeholder"
+            :placeholder="item.placeholder || `请输入${item.label}`"
             clearable
           />
         </el-form-item>
-        <div v-if="state.more && state.open" class="tool-btns flex1 tr">
+        <div v-if="more && state.open" class="tool-btns flex1 tr">
+          <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
           <el-button @click="clear">清空</el-button>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
         </div>
       </el-form>
-      <div v-if="!state.more || !state.open" class="tool-btns ml20">
-        <el-button color="red" @click="clear">清空</el-button>
+      <div v-if="!more || !state.open" class="tool-btns ml20">
+        <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
+        <el-button @click="clear">清空</el-button>
         <el-button type="primary" @click="handleSearch">搜索</el-button>
       </div>
     </div>
-    <span v-if="state.more" class="tool-open-btn pointer" @click="handleOpen">
+    <span v-if="more && openType !== 'button'" class="tool-open-btn pointer" @click="handleOpen">
       <i :class="`el-icon-d-arrow-${state.open?'left':'right'}`" />
     </span>
   </div>
@@ -67,32 +69,37 @@ import {
 } from 'vue';
 
 const props = defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
-  defaultOpen: Boolean,
-  labelWidth: {
-    type: String,
-    default: '80px',
-  },
   modelValue: {
     type: Object,
     default: () => ({}),
   },
+  items: {
+    type: Array,
+    default: () => [],
+  },
+  labelWidth: {
+    type: [String, Number],
+    default: '80px',
+  },
+  defaultOpen: Boolean,
   selectAutoSubmit: Boolean,
+  openType: {
+    type: String,
+    default: 'hover',
+  },
 });
 
 const emit = defineEmits(['handleSearch', 'update:modelValue']);
 
 const state = reactive({
-  more: props.items.length > 5,
   open: props.defaultOpen,
 });
 
+const more = computed(() => props.items.length > 5);
+
 const height = computed(() => {
   let line = 1;
-  if (state.more && state.open) {
+  if (more.value && state.open) {
     line = Math.ceil(props.items.length / 5) + (props.items.length % 5 === 0 ? 1 : 0);
   }
   return `${line * 51}px`;
