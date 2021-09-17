@@ -31,7 +31,7 @@
             clearable
           >
             <el-option
-              v-for="(opt, index) in item.options" :key="index"
+              v-for="(opt, idx) in item.options" :key="idx"
               :label="opt.label"
               :value="opt.value"
               :disabled="opt.disabled"
@@ -53,8 +53,8 @@
           />
           <el-date-picker
             v-if="item.type === 'date'"
-            :type="item.model || 'date'"
             v-model="form[item.prop]"
+            :type="item.model || 'date'"
             :default-time="modelValue[item.prop]"
             :placeholder="item.placeholder || '请选择日期'"
             :range-separator="item.separator || '至'"
@@ -68,7 +68,7 @@
             v-if="item.type === 'radio'"
             v-model="form[item.prop]"
           >
-            <template v-for="(opt, index) in item.options" :key="index">
+            <template v-for="(opt, idx) in item.options" :key="idx">
               <el-radio-button v-if="item.button" :label="opt.value">{{ opt.label }}</el-radio-button>
               <el-radio v-else :label="opt.value">{{ opt.label }}</el-radio>
             </template>
@@ -77,7 +77,7 @@
             v-if="item.type === 'checked'"
             v-model="form[item.prop]"
           >
-            <el-checkbox v-for="(opt, index) in item.options" :key="index" :label="opt" />
+            <el-checkbox v-for="(opt, idx) in item.options" :key="idx" :label="opt" />
           </el-checkbox-group>
         </template>
       </el-form-item>

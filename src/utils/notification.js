@@ -1,19 +1,11 @@
-export default class notifide {
-  constructor(option) {
-    this.defaultOption = {
-      title: '',
-      message: '',
-      type: '',
-      duration: 4500,
-      position: '',
-      showClose: true,
-      onClose() {},
-      onClick() {},
-      offset: 0,
-      desktop: false,
-      tag: '',
-    };
+import { ElNotification } from 'element-plus';
 
+export default class notifide {
+  defaultOption = {}
+
+  constructor(option) {
     Object.assign(this.defaultOption, option);
   }
 }
+
+// export default function notification(option) {}

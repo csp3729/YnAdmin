@@ -1,10 +1,10 @@
 <template>
-  <SettingItem v-for="(item, index) in colors" :key="index" v-bind="item" >
+  <SettingItem v-for="(item, index) in colors" :key="index" v-bind="item">
     <template #theme>
-      <el-color-picker size="mini" v-model="themeColor" :predefine="themeColors" />
+      <el-color-picker v-model="themeColor" size="mini" :predefine="themeColors" />
     </template>
     <template #menu>
-      <el-color-picker size="mini" v-model="menuColor" :predefine="menuColors" />
+      <el-color-picker v-model="menuColor" size="mini" :predefine="menuColors" />
     </template>
   </SettingItem>
 </template>

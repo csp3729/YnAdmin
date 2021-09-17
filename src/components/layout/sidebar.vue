@@ -1,36 +1,37 @@
 <template>
-    <el-menu
-      :class="[topMenuPlace, { isInherit: color.text }]"
-      :mode="mode" router
-      :background-color="color.background"
-      :text-color="color.text"
-      :unique-opened="unique"
-      :default-active="$route.path"
-      :collapse="isCollapse">
-      <el-menu-item class="menu-item--logo" v-if="showLogo" disabled>
-        <img src="@/assets/logo.png" width="28" height="28" >
-        <span class="logo-title">YnAdmin</span>
+  <el-menu
+    :class="[topMenuPlace, { isInherit: color.text }]"
+    :mode="mode" router
+    :background-color="color.background"
+    :text-color="color.text"
+    :unique-opened="unique"
+    :default-active="$route.path"
+    :collapse="isCollapse"
+  >
+    <el-menu-item v-if="showLogo" class="menu-item--logo" disabled>
+      <img src="@/assets/logo.png" width="28" height="28">
+      <span class="logo-title">YnAdmin</span>
+    </el-menu-item>
+    <template v-for="t in menus" :key="t.path">
+      <el-menu-item v-if="!t.children" :index="t.path">
+        <i :class="t.meta?.icon" />
+        <span>{{ t.meta.title }}</span>
       </el-menu-item>
-      <template v-for="t in menus" :key="t.path">
-        <el-menu-item v-if="!t.children" :index="t.path">
-          <i :class="t.meta?.icon"></i>
+      <el-sub-menu v-else :index="t.path">
+        <template #title>
+          <i :class="t.meta?.icon" />
           <span>{{ t.meta.title }}</span>
+        </template>
+        <el-menu-item v-for="child in t.children" :key="child.path" :index="`${t.path}/${child.path}`">
+          <i :class="child.meta?.icon" />
+          <span>{{ child.meta.title }}</span>
         </el-menu-item>
-        <el-sub-menu v-else :index="t.path">
-          <template #title>
-            <i :class="t.meta?.icon"></i>
-            <span>{{ t.meta.title }}</span>
-          </template>
-          <el-menu-item v-for="child in t.children" :key="child.path" :index="`${t.path}/${child.path}`">
-            <i :class="child.meta?.icon"></i>
-            <span>{{ child.meta.title }}</span>
-          </el-menu-item>
-        </el-sub-menu>
-      </template>
-      <el-menu-item v-if="showCollapse" class="menu-collapse">
-        <YnCollapse button />
-      </el-menu-item>
-    </el-menu>
+      </el-sub-menu>
+    </template>
+    <el-menu-item v-if="showCollapse" class="menu-collapse">
+      <YnCollapse button />
+    </el-menu-item>
+  </el-menu>
 </template>
 
 <script setup>

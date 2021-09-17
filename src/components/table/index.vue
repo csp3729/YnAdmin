@@ -3,28 +3,30 @@
     <span class="table-title">{{ title }}</span>
     <TabelTool
       v-if="tool"
-      :options="options"
       v-model:showIndex="state.showIndex"
       v-model:showExport="state.selection"
       v-model:tableSize="state.size"
       v-model:checkeds="state.checkedOpts"
+      :options="options"
       :selected="state.selectionItems"
-      :refresh="refresh">
-      <slot name="tool"></slot>
+      :refresh="refresh"
+    >
+      <slot name="tool" />
     </TabelTool>
   </div>
   <el-table
-    class="mb10"
     v-bind="$attrs"
     ref="tableRef"
+    class="mb10"
     :data="tableData"
     :size="state.size"
     :stripe="stripe"
     :max-height="state.tableHeight"
-    :headerCellStyle="{ backgroundColor: '#eee' }"
-    @selection-change="handleSelectionChange">
-    <el-table-column v-if="state.selection" type="selection" align="center" key="select" />
-    <el-table-column v-if="state.showIndex" type="index" label="序号" align="center" key="sort" />
+    :header-cell-style="{ backgroundColor: '#eee' }"
+    @selection-change="handleSelectionChange"
+  >
+    <el-table-column v-if="state.selection" key="select" type="selection" align="center" />
+    <el-table-column v-if="state.showIndex" key="sort" type="index" label="序号" align="center" />
     <template v-for="(col, idx) in headers" :key="idx">
       <el-table-column
         v-if="isHide(state.checkedOpts, col)"
@@ -32,11 +34,12 @@
         :width="col.width || ((col.prop || col.slot) === 'actions' ? 200 : '')"
         :prop="col.prop"
         :formatter="col.formatter"
-        :align="col.align || 'center'">
-        <template #default="scope" v-if="col.slot">
-          <slot :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index"></slot>
+        :align="col.align || 'center'"
+      >
+        <template v-if="col.slot" #default="scope">
+          <slot :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index" />
         </template>
-        <template #default="scope" v-else-if="col.prop === 'actions'">
+        <template v-else-if="col.prop === 'actions'" #default="scope">
           <el-button type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
         </template>
@@ -57,10 +60,16 @@ import {
 import TabelTool from './tableTool.vue';
 
 const props = defineProps({
-  title: String,
+  title: {
+    type: String,
+    default: '',
+  },
   export: Boolean,
   stripe: Boolean,
-  refresh: Function,
+  refresh: {
+    type: Function,
+    default() {},
+  },
   tool: {
     type: Boolean,
     default: true,
@@ -75,7 +84,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits([]);
+const emit = defineEmits(['edit', 'delete']);
 
 const state = reactive({
   selection: props.export,

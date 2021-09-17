@@ -23,19 +23,14 @@
       </div>
     </template>
   </el-upload>
-  <Draggable class="upload-img-list df fw-w" @end="onEnd" v-model="dragList" item-key="name">
+  <Draggable v-model="dragList" class="upload-img-list df fw-w" item-key="name" @end="onEnd">
     <template #item="{ element: { raw, percentage, imageUrl, status }, index }">
       <div :class="['list-item res', status ]" :style="{ width: `${imageSize}px`, height: `${imageSize}px` }">
-        <el-image
-          class="list-item--image"
-          :src="loadImageUrl({ raw, imageUrl })"
-          fit="contain"
-          :preview-src-list="srcList"
-          hide-on-click-modal />
+        <el-image class="list-item--image" :src="loadImageUrl({ raw, imageUrl })" fit="contain" :preview-src-list="srcList" hide-on-click-modal />
         <div class="list-item--masking df-cc fd-c pa5">
-          <span class="fail-tip">{{ status === 'error' ? '上传失败': ''}}</span>
+          <span class="fail-tip">{{ status === 'error' ? '上传失败': '' }}</span>
           <el-progress class="progress" :status="status === 'error' ? 'exception':''" :show-text="false" :percentage="percentage" :stroke-width="2" />
-          <span class="del-btn el-icon-delete" @click="handleRemove(index)"></span>
+          <span class="del-btn el-icon-delete" @click="handleRemove(index)" />
         </div>
         <span class="remove-btn abs el-icon-close" @click="handleRemove(index)" />
       </div>

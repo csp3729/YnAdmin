@@ -21,8 +21,7 @@ const send2 = () => {
     // 通知显示正文的图片地址。非必须，默认为空
     // image: 'imgae url',
     // 通知左侧图标。非必须，默认为空
-    icon: 'https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=logo&hs=0&pn=0&spn=0&di=3110&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&ie=utf-8&oe=utf-8&cl=2&lm=-1&cs=1872160437%2C2900547901&os=1157975325%2C4192909618&simid=4171318505%2C510283613&adpicid=0&lpn=0&ln=30&fr=ala&fm=&sme=&cg=&bdtype=11&oriquery=logo&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fpic1.jobui.com%2FcompanyLogo%2F15110%2F14290652223386.png!msq%26refer%3Dhttp%3A%2F%2Fpic1.jobui.com%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1634355884%26t%3D88e579f755cdd1e477ccfb6d8253d2fc&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3B35k7t_z%26e3Bv54AzdH3Fv54rwgyAzdH3F8n9dlc8nAzdH3Ffwsw6yAzdH3Fk5fit&gsm=1&islist=&querylist=',
-    // icon: '@/assets/logo.png',
+    icon: '',
     // 通知的分类标记（ID）。非必须，默认为空
     tag: '',
     // 通知相关联的数据，通常用于方法的回调，传参。非必须，默认为空

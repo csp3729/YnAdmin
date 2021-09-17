@@ -2,19 +2,21 @@
   <div class="search-tool">
     <div class="tool-content df" :style="{ height: height }">
       <el-form class="df flex1 fw-w" :model="form" :label-width="labelWidth">
-        <el-form-item class="tool-item" v-for="(item, index) in items" :key="index" :label="item.label">
+        <el-form-item v-for="(item, index) in items" :key="index" class="tool-item" :label="item.label">
           <slot v-if="item.slot" :name="item.slot" />
           <el-select
-            class="w100"
             v-if="item.type === 'select'"
             v-model="form[item.model]"
+            class="w100"
             :placeholder="item.placeholder"
-            clearable>
+            clearable
+          >
             <el-option
               v-for="opt in item.options"
               :key="opt.value"
               :label="opt.label"
-              :value="opt.value" />
+              :value="opt.value"
+            />
           </el-select>
           <el-time-picker
             v-else-if="item.type === 'time'"
@@ -23,7 +25,8 @@
             clearable
             :editable="false"
             :format="item.format"
-            @change="selectAutoSubmit && handleSearch" />
+            @change="selectAutoSubmit && handleSearch"
+          />
           <el-date-picker
             v-else-if="item.type === 'date'"
             v-model="form[item.model]"
@@ -33,12 +36,14 @@
             :editable="false"
             :format="item.format"
             :default-value="item.defaultValue"
-            @change="selectAutoSubmit && handleSearch" />
+            @change="selectAutoSubmit && handleSearch"
+          />
           <el-input
             v-else
             v-model="form[item.model]"
             :placeholder="item.placeholder"
-            clearable />
+            clearable
+          />
         </el-form-item>
         <div v-if="state.more && state.open" class="tool-btns flex1 tr">
           <el-button @click="clear">清空</el-button>
@@ -51,7 +56,7 @@
       </div>
     </div>
     <span v-if="state.more" class="tool-open-btn pointer" @click="handleOpen">
-      <i :class="`el-icon-d-arrow-${state.open?'left':'right'}`"></i>
+      <i :class="`el-icon-d-arrow-${state.open?'left':'right'}`" />
     </span>
   </div>
 </template>

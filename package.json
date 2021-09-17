@@ -3,11 +3,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "ws": "node server.js"
   },
   "dependencies": {
     "apite": "^1.2.4",
     "axios": "^0.21.1",
+    "babel-eslint": "^10.1.0",
     "element-plus": "^1.1.0-beta.12",
     "element-resize-detector": "^1.2.3",
     "js-md5": "^0.7.3",
@@ -24,11 +26,13 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
-    "eslint": "^7.29.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-vue": "^7.11.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-vue": "^7.17.0",
     "sass": "^1.35.1",
-    "vite": "^2.4.1"
+    "vite": "^2.4.1",
+    "ws": "^8.2.2"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-breadcrumb df-sb-cc" v-if="showBreadcrumb">
+  <div v-if="showBreadcrumb" class="layout-breadcrumb df-sb-cc">
     <div class="df-cc">
       <YnCollapse v-if="showCollapse" class="mr12" />
       <el-breadcrumb>

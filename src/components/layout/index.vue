@@ -7,7 +7,7 @@
       <el-header class="layout-header" :height="`${headerHeight}px`">
         <Header>
           <Sidebar v-if="layout === 'tm'" horizontal />
-          <Breadcrumb style="height: 100%;" v-if="showBread('header')" />
+          <Breadcrumb v-if="showBread('header')" style="height: 100%;" />
         </Header>
       </el-header>
       <el-container>
@@ -15,8 +15,9 @@
           <Sidebar />
         </el-aside>
         <el-container class="layout-contnet" direction="vertical">
-          <Breadcrumb class="pl12" v-if="showBread('main')" />
-          <el-main class="layout-main df fd-c ma10 pa10 bgW">
+          <Breadcrumb v-if="showBread('main')" class="pl12" />
+          <el-main class="layout-main ma10 pa10 bgW">
+            <!-- df fd-c 到底要不要做flex呢? -->
             <router-view v-slot="{ Component }">
               <transition name="el-fade-in-linear" mode="out-in">
                 <component :is="Component" />

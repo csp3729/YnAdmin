@@ -3,7 +3,7 @@
     <template #reference>
       <div class="header-menu-btn" @click="goRouterMsg">
         <el-badge is-dot class="item" type="danger">
-          <i class="el-icon-bell "></i>
+          <i class="el-icon-bell" />
         </el-badge>
       </div>
     </template>
@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, reactive } from 'vue';
+import { reactive, onBeforeUnmount } from 'vue';
 import { store, router } from '@uts/instance';
 import { ElNotification } from 'element-plus';
 
@@ -24,30 +24,31 @@ const state = reactive({
   activeName: 'first',
 });
 
-// const uid = store.getters.userinfo.userId;
+const uid = store.getters.userinfo.userId;
 // const ws = new WebSocket(import.meta.env.VITE_WS_SERVER);
+const ws = new WebSocket('ws://192.168.111.179:3729');
 
-// ws.onopen = () => {
-//   console.log('已链接');
-//   ws.send(JSON.stringify({ uid }));
-// };
+ws.onopen = () => {
+  console.log('已链接');
+  ws.send(JSON.stringify({ uid }));
+};
 
-// ws.onmessage = ({ data }) => {
-//   if (document.hidden) {
-//     notification('您有新消息！', {
-//       body: data,
-//       tag: '',
-//       unique: true,
-//       duration: 4500,
-//     });
-//   } else {
-//     ElNotification({ title: '您有新消息！', message: data });
-//   }
-// };
+ws.onmessage = ({ data }) => {
+  if (document.hidden) {
+    notification('您有新消息！', {
+      body: data,
+      tag: '',
+      unique: true,
+      duration: 4500,
+    });
+  } else {
+    ElNotification({ title: '您有新消息！', message: data });
+  }
+};
 
-// onBeforeUnmount(() => {
-//   ws.close(1000, JSON.stringify({ uid }));
-// });
+onBeforeUnmount(() => {
+  ws.close(1000, JSON.stringify({ uid }));
+});
 
 const nots = {};
 

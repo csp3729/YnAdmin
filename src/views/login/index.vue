@@ -24,20 +24,22 @@
       <el-form ref="loginForm" :model="state.form" :rules="rules">
         <template v-if="state.actinveName === 'user'">
           <el-form-item prop="account">
-            <el-input v-model="state.form.account" prefix-icon="el-icon-user" placeholder="请输入用户名/手机号"></el-input>
+            <el-input v-model="state.form.account" prefix-icon="el-icon-user" placeholder="请输入用户名/手机号" />
           </el-form-item>
-           <el-form-item prop="password">
-            <el-input v-model="state.form.password" type="password" show-password prefix-icon="el-icon-lock" placeholder="请输入密码"></el-input>
+          <el-form-item prop="password">
+            <el-input v-model="state.form.password" type="password" show-password prefix-icon="el-icon-lock" placeholder="请输入密码" />
           </el-form-item>
         </template>
         <template v-else>
           <el-form-item prop="phone">
-            <el-input v-model="state.form.phone" prefix-icon="el-icon-user" placeholder="请输入手机号"></el-input>
+            <el-input v-model="state.form.phone" prefix-icon="el-icon-user" placeholder="请输入手机号" />
           </el-form-item>
           <el-form-item prop="code">
             <el-input v-model="state.form.code" maxlength="6" prefix-icon="el-icon-message" placeholder="请输入验证码">
               <template #append>
-                <span :class="['msg-text', { disabled: state.sending || state.time }]" @click="handleSend">{{ state.time? `${state.time}秒后重发`:'发送验证码' }}</span>
+                <span :class="['msg-text', { disabled: state.sending || state.time }]" @click="handleSend">
+                  {{ state.time? `${state.time}秒后重发`:'发送验证码' }}
+                </span>
               </template>
             </el-input>
           </el-form-item>

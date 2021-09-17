@@ -1,12 +1,12 @@
 <template>
   <el-tooltip effect="light" content="设置" placement="bottom">
     <div class="header-menu-btn" @click="openDeawer">
-      <i class="el-icon-setting"></i>
+      <i class="el-icon-setting" />
     </div>
   </el-tooltip>
   <el-drawer
-    title="视窗配置"
     v-model="drawer"
+    title="视窗配置"
     append-to-body
     destroy-on-close
     :size="360"

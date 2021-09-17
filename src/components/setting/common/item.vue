@@ -5,53 +5,67 @@
       <slot v-if="slot" :name="slot" />
       <el-switch
         v-if="type === 'switch'"
-        v-bind="$attrs"
         v-model="value"
+        v-bind="$attrs"
         :disabled="isDisabled"
-        size="mini" />
+        size="mini"
+      />
       <el-select
         v-if="type === 'select'"
-        v-bind="$attrs"
         v-model="value"
+        v-bind="$attrs"
         :disabled="isDisabled"
-        size="mini">
+        size="mini"
+      >
         <el-option
           v-for="item in options"
           :key="item.value"
           :label="item.label"
-          :value="item.value" />
+          :value="item.value"
+        />
       </el-select>
       <el-input-number
         v-if="type === 'number'"
-        v-bind="$attrs"
         v-model="value"
+        v-bind="$attrs"
         :disabled="isDisabled"
         size="mini"
-        controls-position="right" />
+        controls-position="right"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import { store } from '@uts/instance';
 
 const props = defineProps({
-  title: String,
-  type: String,
+  title: {
+    type: String,
+    default: '',
+  },
+  type: {
+    type: String,
+    default: '',
+  },
   disabled: {
     type: Function,
     default() {},
   },
   model: {
     type: String,
-    // required: true,
+    // required: false,
+    default: '',
   },
   options: {
     type: Array,
     default: () => [],
   },
-  slot: String,
+  slot: {
+    type: String,
+    default: '',
+  },
 });
 
 const value = computed({

@@ -9,13 +9,15 @@
     <SearchForm v-model="state.form" :items="state.items" @handle-search="handleRefresh" />
     <Table :headers="headers" :data="state.data" :tool="!false" title="" :refresh="handleRefresh" @edit="handleEdit">
       <template #tool>
-        <el-button size="mini" type="text" icon="el-icon-folder-add" class="fs20"></el-button>
+        <el-button size="mini" type="text" icon="el-icon-folder-add" class="fs20" />
       </template>
       <template #actions>
         <el-button>这是一个按钮</el-button>
       </template>
     </Table>
-    <Pagination v-model="state.paging" :prop="{ page: 'page', size: 'limit' }" :total="1000" @handleChange="handleRefresh" />
+    <Pagination
+      v-model="state.paging" :prop="{ page: 'page', size: 'limit' }" :total="1000" @handleChange="handleRefresh"
+    />
     <!-- <UploadImage v-model="state.fileList" /> -->
   </div>
 </template>
