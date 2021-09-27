@@ -3,7 +3,7 @@
     <h2 class="title">Table 表格</h2>
     <p class="describe">Table表格只是在el-table上进行了一层封装并加入了头部工具栏，表格的高度受限于外部容器，默认为height：100%，当处于flex布局中，获得flex：1的效果。</p>
     <div class="source">
-      <Table :headers="headers" :index="false" :data="state.data" title="表格数据" />
+      <Table :headers="headers" :edit="false" :index="false" :data="state.data" title="表格数据" />
     </div>
     <div class="detail">
       <div class="label">Table Attributes</div>
@@ -48,9 +48,11 @@ const headers = [
   {
     label: '姓名', prop: 'name', tooltip: true, resizable: true,
   },
-  { label: '性别', prop: 'sex', formatter: (row) => (row.sex === '男' ? 1 : 2) },
+  {
+    label: '性别', prop: 'sex', type: 'select', formatter: (row) => (row.sex === '男' ? 1 : 2),
+  },
   { label: '年龄', prop: 'age', textClass: ({ age }) => (age >= 24 ? 'up' : 'lower') },
-  { label: '所在地', prop: 'area' },
+  { label: '所在地', prop: 'area', type: 'input' },
   { label: '操作', prop: 'actions' },
 ];
 

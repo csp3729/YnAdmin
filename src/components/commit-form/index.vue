@@ -12,7 +12,7 @@
         <slot v-if="item.slot" :name="item.slot" />
         <template v-else>
           <el-input
-            v-if="['input','textarea'].indexOf(item.type) > -1"
+            v-if="['input','textarea'].includes(item.type)"
             v-model="form[item.prop]"
             :type="item.mode || item.type"
             :placeholder="item.placeholder || `请输入${item.label}`"

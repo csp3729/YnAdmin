@@ -25,15 +25,19 @@
           :show-overflow-tooltip="col.tooltip"
           :resizable="col.resizable || false"
         >
-          <template v-if="col.slot" #default="scope">
-            <slot :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index" />
-          </template>
-          <template v-else-if="col.prop === 'actions'" #default="scope">
-            <el-button type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
-            <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
-          </template>
-          <template v-else #default="scope">
-            <span :class="typeof col.textClass === 'function' ? (col.textClass(scope.row, scope.column)) : col.textClass">
+          <template #default="scope">
+            <slot v-if="col.slot" :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index" />
+            <template v-else-if="col.prop === 'actions'">
+              <el-button type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
+              <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
+            </template>
+            <template v-else-if="edit && state.editIndex === scope.$index">
+              <el-input v-if="col.type === 'input'" v-model="state.editForm[col.prop]" size="mini" clearable />
+              <el-select v-if="col.type === 'select'" v-model="state.editForm[col.prop]" clearable>
+                <el-option v-for="(t, i) in col.items" :key="i" :label="t.label" :value="t.value" />
+              </el-select>
+            </template>
+            <span v-else :class="typeof col.textClass === 'function' ? (col.textClass(scope.row, scope.column)) : col.textClass">
               {{ col.formatter?.(scope.row, scope.column, scope.cellValue, scope.$index) || scope.row[col.prop] }}
             </span>
           </template>
@@ -61,6 +65,7 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  edit: Boolean,
   refresh: {
     type: Function,
     default() {},
@@ -92,6 +97,8 @@ const state = reactive({
     tableSize: 'small',
     checkedOpts: [], // 已选显示
   },
+  editIndex: null,
+  editForm: {},
 });
 
 const options = [];
@@ -135,7 +142,12 @@ function handleSelectionChange(val) {
 
 // 事件分发
 function onEdit({ row, column, $index }) {
-  emit('edit', { row, column, index: $index });
+  if (props.edit) {
+    state.editIndex = $index;
+    state.editForm = { ...row };
+  } else {
+    emit('edit', { row, column, index: $index });
+  }
 }
 
 function onDelete({ row, column, $index }) {
