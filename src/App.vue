@@ -21,7 +21,10 @@ const setTransitionName = (route) => (route.path === '/lock' ? 'lock' : 'slide')
   // -webkit-font-smoothing: antialiased;
   // -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  min-height: 1000px;
+  // min-height: 1000px;
   overflow-y: auto;
+}
+html, body {
+  height: 100%;
 }
 </style>

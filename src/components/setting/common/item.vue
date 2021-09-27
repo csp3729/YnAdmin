@@ -1,7 +1,7 @@
 <template :inheritAttrs="false">
   <div class="config-item">
-    <span class="label">{{ title }}</span>
-    <div class="content">
+    <span class="item--label">{{ title }}</span>
+    <div class="item--content">
       <slot v-if="slot" :name="slot" />
       <el-switch
         v-if="type === 'switch'"
@@ -86,12 +86,14 @@ const isDisabled = computed(props.disabled);
     margin-bottom: 20px;
   }
 
-  .label {
+  .item--label {
     font-size: 14px;
   }
 
-  .content {
-    width: 120px;
+  .item--content {
+    :deep(.el-input__inner) {
+      width: 120px;
+    }
     text-align: right;
   }
 

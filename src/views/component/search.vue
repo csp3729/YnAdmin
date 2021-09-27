@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h2 class="title">搜索工具</h2>
-    <p class="describe">搜索工具宽度继承父元素，每行分为5等份展示每一项</p>
+  <div class="content">
+    <h2 class="title">SearchForm 搜索工具</h2>
+    <p class="describe">搜索工具宽度继承父元素，每行分为5等份展示每一项。当搜索条件较多的时候，默认展示5个，可以通过展开按钮展开更多的搜索条件。</p>
     <div class="source">
-      <SearchForm v-model="state.form" :items="items" :label-width="state.setForm.width" open-type="button" />
+      <SearchForm v-model="state.form" :items="items" :label-width="state.setForm.width" />
     </div>
     <p class="actions">试试修改参数</p>
     <el-form class="pa5" :model="state.setForm" size="mini" inline>
@@ -12,7 +12,6 @@
       </el-form-item>
     </el-form>
     <div class="detail">
-      <p class="describe">当搜索条件较多的时候，默认展示5个，可以通过hover显示展开按钮展开更多的搜索条件</p>
       <div class="label">SearchForm Attributes</div>
       <el-table :data="searchDetail">
         <el-table-column prop="model" label="参数" />
@@ -90,10 +89,11 @@ const itemDetail = [
   { model: 'placeholder', explain: '占位符，默认情况下根据类型显示：请输入 / 请选择 加上label的值', type: 'string', options: '—', default: '—' },
   { model: 'options', explain: 'select的选项组，关联类型 { label, value }', type: 'array', options: '—', default: '—' },
   { model: 'format', explain: 'time / date 显示在输入框中的格式 ', type: 'string', options: '参考element-plus文档', default: '—' },
-  // { model: '', explain: '', type: '', options: '—', default: '—' },
+  { model: 'slot', explain: '将当前项定义为slot', type: 'string', options: '—', default: '—' },
   // { model: '', explain: '', type: '', options: '—', default: '—' },
 ];
 
 </script>
 <style lang="scss" scoped>
+
 </style>

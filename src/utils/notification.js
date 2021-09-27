@@ -1,13 +1,15 @@
 import { ElNotification } from 'element-plus';
 
-export default class notifide {
-  defaultOption = {}
+// export default class notifide {
+//   defaultOption = {}
 
-  onts = []
+//   onts = []
 
-  constructor(option) {
-    Object.assign(this.defaultOption, option);
-  }
-}
+//   constructor(option) {
+//     Object.assign(this.defaultOption, option);
+//   }
+// }
 
-// export default function notification(option) {}
+const nots = [];
+
+export default function notification(option) {}

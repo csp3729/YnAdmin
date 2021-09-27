@@ -2,11 +2,17 @@
   <div>
     <el-button type="primary" @click="send1">页面通知</el-button>
     <el-button type="primary" @click="send2">桌面通知</el-button>
-    <el-button type="primary">根据状态通知</el-button>
+    <el-button type="primary" @click="send3">根据状态通知</el-button>
+    <div>
+      <el-switch v-model="value1" interior active-text="是" inactive-text="否" />
+    </div>
   </div>
 </template>
 <script setup>
+import { ref } from 'vue';
 import { ElNotification } from 'element-plus';
+
+const value1 = ref(false);
 
 function send1() {
   ElNotification({
@@ -14,7 +20,7 @@ function send1() {
   });
 }
 
-const send2 = () => {
+function send2() {
   notification('您有新消息！', {
     // 通知显示正文。非必须，默认为空
     body: '你的好友XX上线了！',
@@ -51,7 +57,14 @@ const send2 = () => {
     unique: true,
     // duration: 4500,
   });
-};
+}
+
+function send3() {
+  setTimeout(() => {
+    if (document.hidden) send2();
+    else send1();
+  }, 3000);
+}
 
 const nots = {};
 

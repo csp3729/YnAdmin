@@ -16,7 +16,7 @@
         </el-aside>
         <el-container class="layout-contnet" direction="vertical">
           <Breadcrumb v-if="showBread('main')" class="pl12" />
-          <el-main class="layout-main df fd-c ma10 pa10 bgW">
+          <el-main class="layout-main ma10 pa10 bgW">
             <router-view v-slot="{ Component }">
               <transition name="el-fade-in-linear" mode="out-in">
                 <component :is="Component" />
@@ -63,6 +63,7 @@ function showBread(con) {
   // box-shadow: 4px 2px 8px 1px #f0f1f2;
 }
 .layout-main {
+  height: 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .1);
 }
 .layout-contnet {

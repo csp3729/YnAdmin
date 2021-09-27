@@ -1,8 +1,8 @@
 <template>
-  <div class="search-tool">
-    <div class="tool-content df" :style="{ height: height }">
+  <div class="search-form">
+    <div class="search-content df" :style="{ height: height }">
       <el-form class="df flex1 fw-w" :model="form" :label-width="labelWidth">
-        <el-form-item v-for="(item, index) in items" :key="index" class="tool-item" :label="item.label">
+        <el-form-item v-for="(item, index) in items" :key="index" class="search-item" :label="item.label">
           <slot v-if="item.slot" :name="item.slot" />
           <el-select
             v-if="item.type === 'select'"
@@ -45,19 +45,19 @@
             clearable
           />
         </el-form-item>
-        <div v-if="more && state.open" class="tool-btns flex1 tr">
+        <div v-if="more && state.open" class="search-btns flex1 tr">
           <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
           <el-button @click="clear">清空</el-button>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
         </div>
       </el-form>
-      <div v-if="!more || !state.open" class="tool-btns ml20">
+      <div v-if="!more || !state.open" class="search-btns ml20">
         <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
         <el-button @click="clear">清空</el-button>
         <el-button type="primary" @click="handleSearch">搜索</el-button>
       </div>
     </div>
-    <span v-if="more && openType !== 'button'" class="tool-open-btn pointer" @click="handleOpen">
+    <span v-if="more && openType !== 'button'" class="search-more-button pointer" @click="handleOpen">
       <i :class="`el-icon-d-arrow-${state.open?'left':'right'}`" />
     </span>
   </div>
@@ -124,16 +124,16 @@ function handleSearch() {
 </script>
 
 <style lang="scss" scoped>
-.search-tool {
+.search-form {
   position: relative;
-  &:hover .tool-open-btn {
+  &:hover .search-more-button {
     display: block;
   }
 }
 :deep(.el-input), :deep(.el-select) {
   width: 100% !important;
 }
-.tool- {
+.search- {
   &content {
     overflow: hidden;
     transition: all .3s;
@@ -145,7 +145,7 @@ function handleSearch() {
       margin-left: 0;
     }
   }
-  &open-btn {
+  &more-button {
     display: none;
     padding: 5px 2px;
     position: absolute;

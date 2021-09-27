@@ -1,34 +1,49 @@
-<template :inheritAttrs="false">
-  <div class="df-cc" v-bind="$attrs">
-    <slot />
-    <el-tooltip v-if="refresh" effect="light" content="刷新" :offset="0" placement="bottom">
-      <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-refresh-right" @click="handleRefresh" />
-    </el-tooltip>
-    <el-tooltip v-if="showExport" effect="light" content="导出" :offset="0" placement="bottom">
-      <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-download" @click="handleExport" />
-    </el-tooltip>
-    <el-tooltip effect="light" content="间距" :offset="0" placement="bottom">
-      <el-button v-color="'#bbb'" class="fs20" type="text" icon="yn-icon-colum-height" @click="handleSize" />
-    </el-tooltip>
-    <el-popover width="300px" :offset="0" placement="bottom" trigger="hover">
-      <template #reference>
-        <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-setting" />
-      </template>
-      <div class="tool-header px10 df-sb-cc">
-        <span>
-          <el-checkbox :checked="showIndex" @change="handleShowIndex">序号</el-checkbox>
-          <el-checkbox :checked="showExport" @change="handleShowExport">导出</el-checkbox>
-        </span>
-        <el-button class="fs14" type="text" @click="handleReset">重置</el-button>
-      </div>
-      <div class="tool-content px10 pt10">
-        <el-checkbox-group v-model="state.checkedOpts" class="df fw-w" :min="1" @change="handleCheckedGroupChange">
-          <div v-for="(opt, idx) in options" :key="idx" class="check-item">
-            <el-checkbox :label="opt.prop || opt.slot">{{ opt.label }}</el-checkbox>
-          </div>
-        </el-checkbox-group>
-      </div>
-    </el-popover>
+<template>
+  <div class="yn-table-tool px3 df-sb-cc">
+    <span class="table-title">{{ title }}</span>
+    <div class="df-cc">
+      <slot />
+      <el-tooltip v-if="refresh" effect="light" content="刷新" :offset="0" placement="bottom">
+        <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-refresh-right" @click="handleRefresh" />
+      </el-tooltip>
+      <el-tooltip v-if="modelValue.showExport" effect="light" content="导出" :offset="0" placement="bottom">
+        <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-download" @click="handleExport" />
+      </el-tooltip>
+      <el-dropdown :offset="0" @command="(value) => handleEmit('tableSize', value)">
+        <el-button v-color="'#bbb'" class="fs20 mx10" type="text" icon="yn-icon-colum-height" />
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item
+              v-for="{ label, value } in size"
+              :key="value"
+              :class="{ active: modelValue.tableSize === value }"
+              :command="value"
+            >
+              {{ label }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      <el-popover width="300px" :offset="0" placement="bottom" trigger="hover">
+        <template #reference>
+          <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-setting" />
+        </template>
+        <div class="tool-header px10 df-sb-cc">
+          <span>
+            <el-checkbox v-model="showIndex">序号</el-checkbox>
+            <el-checkbox v-model="showExport">导出</el-checkbox>
+          </span>
+          <el-button class="fs14" type="text" @click="handleReset">重置</el-button>
+        </div>
+        <div class="tool-content px10 pt10">
+          <el-checkbox-group v-model="checkedOpts" class="df fw-w" :min="1">
+            <div v-for="(opt, idx) in options" :key="idx" class="check-item">
+              <el-checkbox :label="opt.prop || opt.slot">{{ opt.label }}</el-checkbox>
+            </div>
+          </el-checkbox-group>
+        </div>
+      </el-popover>
+    </div>
   </div>
   <el-dialog v-model="state.showExportSet" title="导出数据" width="400px">
     <el-form :model="state.form" label-width="84px">
@@ -37,7 +52,7 @@
       </el-form-item>
       <el-form-item label="导出格式">
         <el-select v-model="state.form.type">
-          <el-option v-for="t in typeOptions" :key="t" :label="t.label" :value="t.type" />
+          <el-option v-for="{ label, type } in typeOptions" :key="type" :label="label" :value="type" />
         </el-select>
       </el-form-item>
       <el-form-item v-if="['xlsx', 'biff8'].indexOf(state.form.type) > -1" label="工作表名称">
@@ -54,24 +69,18 @@
 </template>
 
 <script setup>
-import { reactive, defineProps, defineEmits } from 'vue';
+import { reactive, computed, onUpdated } from 'vue';
 import { ElMessage } from 'element-plus';
 import XLSX from 'xlsx';
 
 const props = defineProps({
-  showIndex: Boolean,
-  showExport: Boolean,
-  tableSize: {
+  modelValue: {
+    type: Object,
+    default: () => ({}),
+  },
+  title: {
     type: String,
     default: '',
-  },
-  refresh: {
-    type: Function,
-    default() {},
-  },
-  checkeds: {
-    type: Array,
-    default: () => [],
   },
   options: {
     type: Array,
@@ -79,17 +88,39 @@ const props = defineProps({
   },
   selected: {
     type: Array,
-    default: () => [],
+    default: () => ([]),
+  },
+  refresh: {
+    type: Function,
+    default() {},
   },
 });
 
-const emit = defineEmits(['update:tableSize', 'update:showIndex', 'update:showExport', 'update:checkeds']);
+const emit = defineEmits(['update:modelValue']);
 
-// 记录全部选项，重置时候使用,节省性能?
-const checkeds = props.options.map((opt) => opt.prop || opt.slot);
+const size = [{ label: '默认', value: 'medium' }, { label: '中等', value: 'small' }, { label: '紧凑', value: 'mini' }];
+
+// 记录初始传入的状态，用于重置设置
+const defaultValue = { ...props.modelValue };
+
+const showIndex = computed({
+  get: () => props.modelValue.showIndex,
+  // set: (value) => emit('update:modelValue', { ...props.modelValue, showIndex: value }),
+  set: (value) => handleEmit('showIndex', value),
+});
+
+const showExport = computed({
+  get: () => props.modelValue.showExport,
+  // set: (value) => emit('update:modelValue', { ...props.modelValue, showExport: value }),
+  set: (value) => handleEmit('showExport', value),
+});
+
+const checkedOpts = computed({
+  get: () => props.modelValue.checkedOpts,
+  set: (value) => emit('update:modelValue', { ...props.modelValue, checkedOpts: value }),
+});
 
 const state = reactive({
-  checkedOpts: props.checkeds,
   showExportSet: false,
   form: { fileName: props.title || 'excel-list', sheet: 'sheet1', type: 'xlsx' },
 });
@@ -107,30 +138,12 @@ function handleRefresh() {
   props.refresh();
 }
 
-function handleSize() {
-  const sizes = ['medium', 'small', 'mini'];
-  const index = sizes.indexOf(props.tableSize);
-  emit('update:tableSize', sizes[index > 1 ? 0 : index + 1]);
-}
-
-function handleShowIndex(val) {
-  emit('update:showIndex', val);
-}
-
-function handleShowExport(val) {
-  emit('update:showExport', val);
-}
-
-function handleCheckedGroupChange(val) {
-  emit('update:checkeds', val);
+function handleEmit(key, value) {
+  emit('update:modelValue', { ...props.modelValue, [key]: value });
 }
 
 function handleReset() {
-  state.checkedOpts = checkeds;
-  // emit('update:tableSize', 'medium');
-  emit('update:showExport', false);
-  emit('update:showIndex', true);
-  emit('update:checkeds', checkeds);
+  emit('update:modelValue', defaultValue);
 }
 
 function handleExport() {
@@ -140,8 +153,8 @@ function handleExport() {
 
 function exportFile() {
   const { fileName, sheet, type } = state.form;
-  const { selected, showIndex, options } = props;
-  const headers = showIndex ? ['序号'] : [];
+  const { selected, options, modelValue: { showIndex: sort } } = props;
+  const headers = sort ? ['序号'] : [];
   const keyArr = [];
   options.forEach((t) => {
     if (state.checkedOpts.includes(t.prop || t.slot)) {
@@ -151,7 +164,7 @@ function exportFile() {
   });
   let data = selected.sort((a, b) => a.yn_sort - b.yn_sort);
   data = XLSX.utils.aoa_to_sheet([headers, ...data.map((t, i) => {
-    const tmp = showIndex ? [i + 1] : [];
+    const tmp = sort ? [i + 1] : [];
     keyArr.forEach((key) => tmp.push(t[key]));
     return tmp;
   })]);
@@ -166,6 +179,15 @@ function exportFile() {
 </script>
 
 <style lang="scss" scoped>
+.table-title {
+  font-size: 16px;
+  line-height: 40px;
+  color: #666;
+}
+.active {
+  background-color: var(--el-color-primary-light-8);
+  color: var(--el-dropdown-menuItem-hover-color);
+}
 .tool-header {
   border-bottom: 1px solid #EBEEF5;
 }

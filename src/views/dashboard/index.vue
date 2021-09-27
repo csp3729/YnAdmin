@@ -1,5 +1,5 @@
 <template>
-  <div class="df fd-c">
+  <div class="df fd-c h100">
     <!-- <UploadImage v-model="state.fileList" :config="{ showedSize: 200 }" >
       <template #tip>
         <span>只能上传 jpg/png 文件，且不超过 500kb</span>
@@ -7,17 +7,8 @@
       <el-button type="primary" @click="select">图库选择</el-button>
     </UploadImage> -->
     <SearchForm v-model="state.form" :items="state.items" @handle-search="handleRefresh" />
-    <Table :headers="headers" :data="state.data" :tool="!false" title="" :refresh="handleRefresh" @edit="handleEdit">
-      <template #tool>
-        <el-button size="mini" type="text" icon="el-icon-folder-add" class="fs20" />
-      </template>
-      <template #actions>
-        <el-button>这是一个按钮</el-button>
-      </template>
-    </Table>
-    <Pagination
-      v-model="state.paging" :prop="{ page: 'page', size: 'limit' }" :total="1000" @handleChange="handleRefresh"
-    />
+    <Table :headers="headers" :data="state.data" :tool="!false" title="表格数据" lazy :refresh="handleRefresh" @edit="handleEdit" />
+    <Pagination v-model="state.paging" :prop="{ page: 'page', size: 'limit' }" :total="1000" @handleChange="handleRefresh" />
     <!-- <UploadImage v-model="state.fileList" /> -->
   </div>
 </template>
@@ -31,6 +22,11 @@ const state = reactive({
   form: {},
   items: [
     { model: 'name', label: '名字', type: 'select' },
+    { label: '年龄', model: 'age' },
+    { label: '年龄', model: 'age' },
+    { label: '年龄', model: 'age' },
+    { label: '年龄', model: 'age' },
+    { label: '年龄', model: 'age' },
     { label: '年龄', model: 'age' },
   ],
   paging: {},
@@ -84,6 +80,8 @@ const handleEdit = (val) => {
 
 </script>
 
-<style>
-
+<style scoped>
+.h100 {
+  height: 100%;
+}
 </style>

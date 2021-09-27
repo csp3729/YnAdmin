@@ -3,6 +3,7 @@ export function getElByClass(cls) {
 }
 
 export function calcTableHeight(tbEl) {
+  console.log('!!!!!', tbEl.offsetHeight);
   const { clientHeight } = document.documentElement;
   const tableOffsetTop = tbEl.offsetTop;
   const tableSpace = 30;

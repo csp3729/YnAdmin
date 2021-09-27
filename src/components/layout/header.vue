@@ -22,7 +22,7 @@
           <el-dropdown-menu>
             <el-dropdown-item icon="">主控面板</el-dropdown-item>
             <el-dropdown-item icon="">个人中心</el-dropdown-item>
-            <el-dropdown-item icon="">
+            <el-dropdown-item icon="" divided>
               <YnLogout>退出登录</YnLogout>
             </el-dropdown-item>
           </el-dropdown-menu>

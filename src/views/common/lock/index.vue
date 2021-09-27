@@ -4,8 +4,10 @@
       <h3>User Name</h3>
       <el-input v-model="password" placeholder="请输入锁屏密码" type="password" @keyup.enter="handleUnlock">
         <template #append>
-          <el-button size="mini" icon="el-icon-unlock" @click="handleUnlock"></el-button>
+          <!-- <div style="width: 50px;"> -->
+          <el-button size="mini" icon="el-icon-unlock" @click="handleUnlock" />
           <YnLogout button />
+          <!-- </div> -->
         </template>
       </el-input>
     </div>
@@ -46,6 +48,17 @@ const handleUnlock = () => {
   h3 {
     color: #fff;
     margin: 15px 0;
+  }
+}
+
+:deep(.el-input-group__append) {
+  padding: 0 10px;
+  .el-button {
+    margin: 0;
+    padding: 0;
+    & + .el-button {
+      margin-left: 10px;
+    }
   }
 }
 </style>
