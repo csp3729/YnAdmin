@@ -1,7 +1,8 @@
 <template>
   <el-container class="layout-container">
     <el-aside v-if="layout === 'lm'" width="auto">
-      <Sidebar />
+      <!-- <Sidebar /> -->
+      <Menu :menus="menus" />
     </el-aside>
     <el-container>
       <el-header class="layout-header" :height="`${headerHeight}px`">
@@ -12,7 +13,8 @@
       </el-header>
       <el-container>
         <el-aside v-if="layout === 'lb'" width="auto">
-          <Sidebar />
+          <!-- <Sidebar /> -->
+          <Menu :menus="menus" />
         </el-aside>
         <el-container class="layout-contnet" direction="vertical">
           <Breadcrumb v-if="showBread('main')" class="pl12" />
@@ -37,6 +39,9 @@ import { store } from '@uts/instance';
 import Header from './header.vue';
 import Sidebar from './sidebar.vue';
 import Breadcrumb from './breadcrumb.vue';
+import Menu from '../menu/index.vue';
+
+import menus from '../../config/menus';
 
 const layout = computed(() => store.getters.layout);
 const headerHeight = computed(() => store.getters.headerHeight);

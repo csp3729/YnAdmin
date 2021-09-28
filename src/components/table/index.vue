@@ -18,7 +18,7 @@
         <el-table-column
           v-if="isHide(state.tools.checkedOpts, col)"
           :label="col.label"
-          :width="col.width || ((col.prop || col.slot) === 'actions' ? 200 : '')"
+          :width="col.width || ((col.prop || col.slot) === 'oper' ? 200 : '')"
           :align="col.align"
           :sortable="col.sortable"
           :sort-method="col.sortMethod"
@@ -27,14 +27,28 @@
         >
           <template #default="scope">
             <slot v-if="col.slot" :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index" />
-            <template v-else-if="col.prop === 'actions'">
-              <el-button type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
-              <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
+            <template v-else-if="col.prop === 'oper'">
+              <template v-if="col.oper">
+                <el-button
+                  v-for="(btn, btnIndex) in col.oper"
+                  :key="btnIndex" :type="btn.type"
+                  @click="btn.onClick(scope)"
+                >
+                  {{ btn.text }}
+                </el-button>
+              </template>
+              <template v-else>
+                <el-button v-if="state.edits[scope.$index]" type="primary" size="mini" icon="el-icon-finished" @click="onSave(scope)">
+                  保存
+                </el-button>
+                <el-button v-else type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
+                <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
+              </template>
             </template>
-            <template v-else-if="edit && state.editIndex === scope.$index">
-              <el-input v-if="col.type === 'input'" v-model="state.editForm[col.prop]" size="mini" clearable />
-              <el-select v-if="col.type === 'select'" v-model="state.editForm[col.prop]" clearable>
-                <el-option v-for="(t, i) in col.items" :key="i" :label="t.label" :value="t.value" />
+            <template v-else-if="edit && col.edit && state.edits[scope.$index]">
+              <el-input v-if="col.edit.type === 'input'" v-model="state.edits[scope.$index][col.prop]" size="mini" clearable />
+              <el-select v-if="col.edit.type === 'select'" v-model="state.edits[scope.$index][col.prop]" clearable>
+                <el-option v-for="(t, i) in col.edit.items" :key="i" :label="t.label" :value="t.value" />
               </el-select>
             </template>
             <span v-else :class="typeof col.textClass === 'function' ? (col.textClass(scope.row, scope.column)) : col.textClass">
@@ -84,7 +98,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['edit', 'delete']);
+const emit = defineEmits(['edit', 'save', 'delete']);
 
 const tableRef = ref(null);
 
@@ -97,7 +111,7 @@ const state = reactive({
     tableSize: 'small',
     checkedOpts: [], // 已选显示
   },
-  editIndex: null,
+  edits: [],
   editForm: {},
 });
 
@@ -143,11 +157,21 @@ function handleSelectionChange(val) {
 // 事件分发
 function onEdit({ row, column, $index }) {
   if (props.edit) {
-    state.editIndex = $index;
-    state.editForm = { ...row };
+    // state.edits.push($index);
+    // state.editForm = { ...row };
+    state.edits[$index] = { ...row };
   } else {
     emit('edit', { row, column, index: $index });
   }
+}
+
+function onSave({ row, column, $index }) {
+  // state.edits.splice(state.edits.indexOf($index), 1);
+  // console.log(row);
+  const data = state.edits[$index];
+  delete state.edits[$index];
+  console.log(data);
+  emit('save', data);
 }
 
 function onDelete({ row, column, $index }) {

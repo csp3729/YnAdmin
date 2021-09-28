@@ -3,7 +3,7 @@
     <h2 class="title">Table 表格</h2>
     <p class="describe">Table表格只是在el-table上进行了一层封装并加入了头部工具栏，表格的高度受限于外部容器，默认为height：100%，当处于flex布局中，获得flex：1的效果。</p>
     <div class="source">
-      <Table :headers="headers" :edit="false" :index="false" :data="state.data" title="表格数据" />
+      <Table :headers="headers" :edit="!false" :index="false" :data="state.data" title="表格数据" />
     </div>
     <div class="detail">
       <div class="label">Table Attributes</div>
@@ -38,10 +38,13 @@ import { inject, reactive, onMounted } from 'vue';
 const http = inject('http');
 
 const state = reactive({
-  data: [
-    {},
-    {},
-  ],
+  data: [],
+});
+
+onMounted(() => {
+  http.getTableData().then((res) => {
+    state.data = res;
+  });
 });
 
 const headers = [
@@ -49,11 +52,14 @@ const headers = [
     label: '姓名', prop: 'name', tooltip: true, resizable: true,
   },
   {
-    label: '性别', prop: 'sex', type: 'select', formatter: (row) => (row.sex === '男' ? 1 : 2),
+    label: '性别',
+    prop: 'sex',
+    formatter: (row) => (row.sex === 1 ? '男' : '女'),
+    edit: { type: 'select', items: [{ label: '男', value: 1 }, { label: '女', value: 2 }] },
   },
   { label: '年龄', prop: 'age', textClass: ({ age }) => (age >= 24 ? 'up' : 'lower') },
-  { label: '所在地', prop: 'area', type: 'input' },
-  { label: '操作', prop: 'actions' },
+  { label: '所在地', prop: 'area', edit: { type: 'input' } },
+  { label: '操作', prop: 'oper' },
 ];
 
 /* eslint-disable object-curly-newline */
@@ -64,6 +70,7 @@ const tableDetail = [
   { model: 'title', explain: '表格标题，仅在tool为true时显示', type: 'string', options: '—', default: '—' },
   { model: 'export', explain: '是否默认展示导出功能，仅在tool为true时有效', type: 'boolean', options: '—', default: 'false' },
   { model: 'index', explain: '是否默认显示序号', type: 'boolean', options: '—', default: 'true' },
+  { model: 'edit', explain: '是否为可行内编辑', type: 'boolean', options: '—', default: 'false' },
 ];
 const columnDetail = [
   { model: 'label', explain: '显示的标题', type: 'string', options: '—', default: '—' },
@@ -77,58 +84,16 @@ const columnDetail = [
   { model: 'resizable', explain: '对应列是否可以通过拖动改变宽度，仅在table的border为true时有效', type: 'boolean', options: '—', default: 'false' },
   { model: 'tooltip', explain: '当内容过长被隐藏时显示 tooltip', type: 'boolean', options: '—', default: 'false' },
   { model: 'textClase', explain: '当前内容项的额外类名，通常用来设定不同状态下的文字颜色，仅在非slot模式下有效', type: 'string / function(row, column)', options: '—', default: '—' },
+  { model: 'edit',
+    explain: '行内编辑模式下行的编辑配置, type指定编辑框类型，仅支持input、select，items为select类型下的的选项',
+    type: 'object { type: input / select, items: [{value, label}] }',
+    options: '—',
+    default: '—' },
   { model: 'slot', explain: '使用slot模式代替数据内容', type: 'string', options: '—', default: '—' },
 ];
 
 const slotDetail = [{ name: 'tool', explain: 'table头部工具的slot，用于扩展工具栏右侧的功能按' }];
 
-const tableData = [
-  {
-    id: 1,
-    date: '2016-05-02',
-    name: '王大虎',
-    address: '上海市普陀区金沙江路 1518 弄',
-  },
-  {
-    id: 2,
-    date: '2016-05-04',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1517 弄',
-    children: [],
-  },
-  {
-    id: 3,
-    date: '2016-05-01',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1519 弄',
-    // children: [
-    //   {
-    //     id: 31,
-    //     date: '2016-05-01',
-    //     name: '王小虎',
-    //     address: '上海市普陀区金沙江路 1519 弄',
-    //   },
-    //   {
-    //     id: 32,
-    //     date: '2016-05-01',
-    //     name: '王小虎',
-    //     address: '上海市普陀区金沙江路 1519 弄',
-    //   },
-    // ],
-  },
-  {
-    id: 4,
-    date: '2016-05-03',
-    name: '王小虎',
-    address: '上海市普陀区金沙江路 1516 弄',
-  },
-];
-
-onMounted(() => {
-  http.getTableData().then((res) => {
-    state.data = res;
-  });
-});
 </script>
 <style lang="scss" scoped>
 .source {

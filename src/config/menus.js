@@ -16,7 +16,7 @@ export default [
     ],
   },
   {
-    path: '',
+    path: '/error',
     meta: { title: '异常页', icon: 'el-icon-s-release' },
     children: [
       { path: '401', meta: { title: '401' } },

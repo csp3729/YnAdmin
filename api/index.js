@@ -16,7 +16,7 @@ api.get('/tableData', () => ({
       () => mock({
         name: '@name',
         'age|18-26': 1,
-        'sex|1': ['男', '女'],
+        'sex|1': [1, 2],
         area: '@city',
       }),
     ],
