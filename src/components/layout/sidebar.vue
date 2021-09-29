@@ -71,7 +71,7 @@ const color = computed(() => {
 
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
   .el-menu {
     height: 100%;
 
@@ -149,4 +149,4 @@ const color = computed(() => {
     bottom: 0;
     padding: 0 !important;
   }
-</style>
+</style> -->

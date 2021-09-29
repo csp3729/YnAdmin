@@ -1,11 +1,8 @@
 <template>
-  <div class="yn-table-tool px3 df-sb-cc">
+  <div class="yn-table-tools px3 df-sb-cc">
     <span class="table-title">{{ title }}</span>
     <div class="df-cc">
       <slot />
-      <el-tooltip v-if="refresh" effect="light" content="刷新" :offset="0" placement="bottom">
-        <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-refresh-right" @click="handleRefresh" />
-      </el-tooltip>
       <el-tooltip v-if="modelValue.showExport" effect="light" content="导出" :offset="0" placement="bottom">
         <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-download" @click="handleExport" />
       </el-tooltip>
@@ -28,14 +25,14 @@
         <template #reference>
           <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-setting" />
         </template>
-        <div class="tool-header px10 df-sb-cc">
+        <div class="tools-header px10 df-sb-cc">
           <span>
             <el-checkbox v-model="showIndex">序号</el-checkbox>
             <el-checkbox v-model="showExport">导出</el-checkbox>
           </span>
           <el-button class="fs14" type="text" @click="handleReset">重置</el-button>
         </div>
-        <div class="tool-content px10 pt10">
+        <div class="tools-content px10 pt10">
           <el-checkbox-group v-model="checkedOpts" class="df fw-w" :min="1">
             <div v-for="(opt, idx) in options" :key="idx" class="check-item">
               <el-checkbox :label="opt.prop || opt.slot">{{ opt.label }}</el-checkbox>
@@ -89,10 +86,6 @@ const props = defineProps({
   selected: {
     type: Array,
     default: () => ([]),
-  },
-  refresh: {
-    type: Function,
-    default() {},
   },
 });
 
@@ -188,7 +181,7 @@ function exportFile() {
   background-color: var(--el-color-primary-light-8);
   color: var(--el-dropdown-menuItem-hover-color);
 }
-.tool-header {
+.tools-header {
   border-bottom: 1px solid #EBEEF5;
 }
 .check-item {

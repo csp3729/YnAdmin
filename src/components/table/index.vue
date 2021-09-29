@@ -1,6 +1,6 @@
 <template :inheritAttrs="false">
   <div class="yn-table">
-    <TabelTool v-if="tool" v-model="state.tools" :title="title" :options="options" :selected="state.selected" :refresh="refresh">
+    <TabelTool v-if="tools" v-model="state.tools" :title="title" :options="options" :selected="state.selected">
       <slot name="tool" />
     </TabelTool>
     <el-table
@@ -14,7 +14,7 @@
     >
       <el-table-column v-if="state.tools.showExport && tool" key="select" type="selection" align="center" />
       <el-table-column v-if="state.tools.showIndex" key="sort" type="index" width="50px" label="序号" align="center" />
-      <template v-for="(col, idx) in headers" :key="idx">
+      <template v-for="(col, idx) in columns" :key="idx">
         <el-table-column
           v-if="isHide(state.tools.checkedOpts, col)"
           :label="col.label"
@@ -30,9 +30,16 @@
             <template v-else-if="col.prop === 'oper'">
               <template v-if="col.oper">
                 <el-button
-                  v-for="(btn, btnIndex) in col.oper"
-                  :key="btnIndex" :type="btn.type"
-                  @click="btn.onClick(scope)"
+                  v-for="(btn, i) in col.oper"
+                  :key="i"
+                  :class="btn.class"
+                  size="mini"
+                  :type="btn.type"
+                  :icon="btn.icon"
+                  :plain="btn.plain"
+                  :round="btn.round"
+                  :circle="btn.circle"
+                  @click="btn.onClick?.(scope)"
                 >
                   {{ btn.text }}
                 </el-button>
@@ -45,12 +52,12 @@
                 <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
               </template>
             </template>
-            <template v-else-if="edit && col.edit && state.edits[scope.$index]">
+            <!-- <template v-else-if="edit && col.edit && state.edits[scope.$index]">
               <el-input v-if="col.edit.type === 'input'" v-model="state.edits[scope.$index][col.prop]" size="mini" clearable />
               <el-select v-if="col.edit.type === 'select'" v-model="state.edits[scope.$index][col.prop]" clearable>
                 <el-option v-for="(t, i) in col.edit.items" :key="i" :label="t.label" :value="t.value" />
               </el-select>
-            </template>
+            </template> -->
             <span v-else :class="typeof col.textClass === 'function' ? (col.textClass(scope.row, scope.column)) : col.textClass">
               {{ col.formatter?.(scope.row, scope.column, scope.cellValue, scope.$index) || scope.row[col.prop] }}
             </span>
@@ -79,16 +86,12 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  edit: Boolean,
-  refresh: {
-    type: Function,
-    default() {},
-  },
-  tool: {
+  // edit: Boolean,
+  tools: {
     type: Boolean,
     default: true,
   },
-  headers: {
+  columns: {
     type: Array,
     default: () => [],
   },
@@ -117,7 +120,7 @@ const state = reactive({
 
 const options = [];
 
-filterHeader(props.headers, options, state.tools.checkedOpts);
+filterHeader(props.columns, options, state.tools.checkedOpts);
 
 // // 过滤原数据添加排序标识
 const tableData = computed(() => props.data.map((t, i) => Object.defineProperty(t, 'yn_sort', { value: i, enumerable: false })));
@@ -138,7 +141,7 @@ onBeforeUpdate(() => {
 
 // 计算表格高度
 function calcTableHeight({ offsetHeight }) {
-  state.tableHeight = offsetHeight - (props.tool ? 50 : 0);
+  state.tableHeight = offsetHeight - (props.tools ? 50 : 0);
 }
 
 // 过滤数据

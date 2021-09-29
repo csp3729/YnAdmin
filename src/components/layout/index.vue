@@ -7,7 +7,8 @@
     <el-container>
       <el-header class="layout-header" :height="`${headerHeight}px`">
         <Header>
-          <Sidebar v-if="layout === 'tm'" horizontal />
+          <!-- <Sidebar v-if="layout === 'tm'" horizontal /> -->
+          <Menu v-if="layout === 'tm'" horizontal :menus="menus" />
           <Breadcrumb v-if="showBread('header')" style="height: 100%;" />
         </Header>
       </el-header>

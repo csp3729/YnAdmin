@@ -7,7 +7,7 @@
       <el-button type="primary" @click="select">图库选择</el-button>
     </UploadImage> -->
     <SearchForm v-model="state.form" :items="state.items" @handle-search="handleRefresh" />
-    <Table :headers="headers" :data="state.data" :tool="!false" title="表格数据" lazy :refresh="handleRefresh" @edit="handleEdit" />
+    <Table :columns="columns" :data="state.data" :tool="!false" title="表格数据" lazy :refresh="handleRefresh" @edit="handleEdit" />
     <Pagination v-model="state.paging" :prop="{ page: 'page', size: 'limit' }" :total="1000" @handleChange="handleRefresh" />
     <!-- <UploadImage v-model="state.fileList" /> -->
   </div>
@@ -53,13 +53,13 @@ const state = reactive({
   data: [],
 });
 
-const headers = [
+const columns = [
   { label: '姓名', prop: 'name' },
   { label: '年龄', prop: 'age' },
   { label: '性别', prop: 'sex' },
   { label: '所属地', prop: 'area' },
   // { label: '插入数据', slot: 'add' },
-  { label: '操作', prop: 'actions' },
+  { label: '操作', prop: 'oper' },
 ];
 
 const select = () => console.log('哈哈哈哈哈');
