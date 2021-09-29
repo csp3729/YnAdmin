@@ -12,7 +12,7 @@
       <img src="@/assets/logo.png" width="28" height="28">
       <span class="logo-title">YnAdmin</span>
     </el-menu-item>
-    <MenuTree :data="menus" />
+    <MenuTree v-for="(item, index) in menus" :key="index" :data="item" />
     <el-menu-item v-if="showCollapse" class="menu-collapse">
       <YnCollapse button />
     </el-menu-item>

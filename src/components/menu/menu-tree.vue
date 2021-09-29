@@ -1,17 +1,15 @@
 <template>
-  <template v-for="(item, index) in data" :key="index">
-    <el-sub-menu v-if="item.children" :index="item.path">
-      <template #title>
-        <i :class="item.meta?.icon" />
-        <span>{{ item.meta.title }}</span>
-      </template>
-      <menu-tree :data="item.children" :pate-path="loadPath(item.path)" />
-    </el-sub-menu>
-    <el-menu-item v-else :index="loadPath(item.path)">
-      <i :class="item.meta?.icon" />
-      <span>{{ item.meta.title }}</span>
-    </el-menu-item>
-  </template>
+  <el-sub-menu v-if="data.children?.length" :index="data.path">
+    <template #title>
+      <i :class="data.meta?.icon" />
+      <span>{{ data.meta.title }}</span>
+    </template>
+    <menu-tree v-for="(item, index) in data.children" :key="index" :data="item" />
+  </el-sub-menu>
+  <el-menu-item v-else :index="data.path">
+    <i :class="data.meta?.icon" />
+    <span>{{ data.meta.title }}</span>
+  </el-menu-item>
 </template>
 <script>
 import { computed } from 'vue';
@@ -24,8 +22,8 @@ export default {
 <script setup>
 const props = defineProps({
   data: {
-    type: Array,
-    default: () => ([]),
+    type: Object,
+    default: () => ({}),
   },
   patePath: {
     type: String,
