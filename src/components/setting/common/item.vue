@@ -100,9 +100,6 @@ const isDisabled = computed(props.disabled);
   :deep(.el-input-number--mini) {
     width: 120px;
     height: 28px;
-    &.is-controls-right .el-input-number__increase {
-      top: 1.5px;
-    }
   }
 }
 </style>

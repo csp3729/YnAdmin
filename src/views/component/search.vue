@@ -3,12 +3,15 @@
     <h2 class="title">SearchForm 搜索工具</h2>
     <p class="describe">搜索工具宽度继承父元素，每行分为5等份展示每一项。当搜索条件较多的时候，默认展示5个，可以通过展开按钮展开更多的搜索条件。</p>
     <div class="source">
-      <SearchForm v-model="state.form" :items="items" :label-width="state.setForm.width" />
+      <SearchForm v-model="state.form" :items="items" :label-width="state.setForm.width" :open-type="state.setForm.openType" />
     </div>
     <p class="actions">试试修改参数</p>
     <el-form class="pa5" :model="state.setForm" size="mini" inline>
-      <el-form-item v-for="({label, type, model} , index) in formItems" :key="index" :label="label">
+      <el-form-item v-for="({label, type, model, options} , index) in formItems" :key="index" :label="label">
         <el-input-number v-if="type === 'number'" v-model="state.setForm[model]" />
+        <el-select v-if="type === 'select'" v-model="state.setForm[model]">
+          <el-option v-for="(item, idx) in options" :key="idx" :label="item.label" :value="item.value" />
+        </el-select>
       </el-form-item>
     </el-form>
     <div class="detail">
@@ -39,12 +42,16 @@ const state = reactive({
   setForm: {
     number: 8,
     width: 65,
+    openType: 'hover',
   },
 });
 
 const formItems = [
   { label: '搜索条件', type: 'number', model: 'number' },
   { label: '标签宽度', type: 'number', model: 'width' },
+  {
+    label: '展开方式', type: 'select', model: 'openType', options: [{ label: '悬浮', value: 'hover' }, { label: '按钮', value: 'button' }],
+  },
 ];
 
 const items = computed(() => {

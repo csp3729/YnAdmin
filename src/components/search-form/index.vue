@@ -46,13 +46,13 @@
           />
         </el-form-item>
         <div v-if="more && state.open" class="search-btns flex1 tr">
-          <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
+          <el-button v-if="more && openType === 'button'" @click="handleOpen">收起</el-button>
           <el-button @click="clear">清空</el-button>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
         </div>
       </el-form>
       <div v-if="!more || !state.open" class="search-btns ml20">
-        <el-button v-if="openType === 'button'" @click="handleOpen">展开</el-button>
+        <el-button v-if="more && openType === 'button'" @click="handleOpen">展开</el-button>
         <el-button @click="clear">清空</el-button>
         <el-button type="primary" @click="handleSearch">搜索</el-button>
       </div>

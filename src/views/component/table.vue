@@ -95,6 +95,7 @@ const slotDetail = [{ name: 'tool', explain: 'table头部工具的slot，用于�
 <style lang="scss" scoped>
 .source {
   height: 300px;
+  padding-top: 10px;
 }
 :deep(.up) {
   color: #58bc58;

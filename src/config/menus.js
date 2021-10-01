@@ -16,11 +16,11 @@ export default [
     ],
   },
   {
-    path: '/error',
+    path: '',
     meta: { title: '异常页', icon: 'el-icon-s-release' },
     children: [
-      { path: '401', meta: { title: '401' } },
-      { path: '404', meta: { title: '404' } },
+      { path: '/401', meta: { title: '401' } },
+      { path: '/404', meta: { title: '404' } },
     ],
   },
   {

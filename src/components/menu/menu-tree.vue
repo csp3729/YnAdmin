@@ -4,9 +4,14 @@
       <i :class="data.meta?.icon" />
       <span>{{ data.meta.title }}</span>
     </template>
-    <menu-tree v-for="(item, index) in data.children" :key="index" :data="item" />
+    <MenuTree
+      v-for="(item, index) in data.children"
+      :key="index"
+      :data="item"
+      :parent-path="realPath(data.path)"
+    />
   </el-sub-menu>
-  <el-menu-item v-else :index="data.path">
+  <el-menu-item v-else :index="realPath(data.path)">
     <i :class="data.meta?.icon" />
     <span>{{ data.meta.title }}</span>
   </el-menu-item>
@@ -16,10 +21,29 @@ import { computed } from 'vue';
 
 export default {
   name: 'MenuTree',
+  props: {
+    data: {
+      type: Object,
+      default: () => ({}),
+    },
+    parentPath: {
+      type: String,
+      default: '',
+    },
+  },
+  setup(props) {
+    const realPath = computed(() => (path) => {
+      const { parentPath } = props;
+      if (parentPath) return `${parentPath}/${path}`;
+      return path;
+    });
+
+    return { realPath };
+  },
 };
 </script>
 
-<script setup>
+<!-- <script setup>
 const props = defineProps({
   data: {
     type: Object,
@@ -37,7 +61,7 @@ const loadPath = computed(() => (path) => {
   if (path.startsWith('/')) return path;
   return `/${path}`;
 });
-</script>
+</script> -->
 
 <style lang="">
 
