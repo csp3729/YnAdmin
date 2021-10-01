@@ -89,7 +89,7 @@ const columnDetail = [
   { model: 'slot', explain: '使用slot模式代替数据内容', type: 'string', options: '—', default: '—' },
 ];
 
-const slotDetail = [{ name: 'tool', explain: 'table头部工具的slot，用于扩展工具栏右侧的功能按' }];
+const slotDetail = [{ name: 'tool', explain: 'table头部工具的slot，用于扩展工具栏右侧的功能' }];
 
 </script>
 <style lang="scss" scoped>

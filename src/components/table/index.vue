@@ -12,7 +12,7 @@
       :header-cell-style="{ backgroundColor: '#f5f7fa' }"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column v-if="state.tools.showExport && tool" key="select" type="selection" align="center" />
+      <el-table-column v-if="state.tools.showExport && tools" key="select" type="selection" align="center" />
       <el-table-column v-if="state.tools.showIndex" key="sort" type="index" width="50px" label="序号" align="center" />
       <template v-for="(col, idx) in columns" :key="idx">
         <el-table-column

@@ -64,9 +64,7 @@
 </template>
 
 <script setup>
-import {
-  reactive, computed, defineProps, defineEmits,
-} from 'vue';
+import { reactive, computed } from 'vue';
 
 const props = defineProps({
   modelValue: {

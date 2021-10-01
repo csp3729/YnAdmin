@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { reactive, computed, onUpdated } from 'vue';
+import { reactive, computed } from 'vue';
 import { ElMessage } from 'element-plus';
 import XLSX from 'xlsx';
 
@@ -98,13 +98,11 @@ const defaultValue = { ...props.modelValue };
 
 const showIndex = computed({
   get: () => props.modelValue.showIndex,
-  // set: (value) => emit('update:modelValue', { ...props.modelValue, showIndex: value }),
   set: (value) => handleEmit('showIndex', value),
 });
 
 const showExport = computed({
   get: () => props.modelValue.showExport,
-  // set: (value) => emit('update:modelValue', { ...props.modelValue, showExport: value }),
   set: (value) => handleEmit('showExport', value),
 });
 
@@ -125,11 +123,6 @@ const typeOptions = [
   { type: 'txt', label: 'txt' },
   { type: 'html', label: 'html' },
 ];
-
-function handleRefresh() {
-  // emit('refresh');
-  props.refresh();
-}
 
 function handleEmit(key, value) {
   emit('update:modelValue', { ...props.modelValue, [key]: value });
