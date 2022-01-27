@@ -1,8 +1,7 @@
 <template>
   <el-tooltip effect="light" :content="isFullscreen?'正常':'全屏'" placement="bottom">
     <div class="header-menu-btn" @click="changeScreen">
-      <i v-if="isFullscreen" class="yn-icon-normal-screen" />
-      <i v-else class="el-icon-full-screen" />
+      <Icon :icon="isFullscreen ? 'Crop' : 'FullScreen'" />
     </div>
   </el-tooltip>
 </template>

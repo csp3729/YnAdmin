@@ -4,16 +4,20 @@
     <div class="df-cc">
       <slot />
       <el-tooltip v-if="modelValue.showExport" effect="light" content="导出" :offset="0" placement="bottom">
-        <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-download" @click="handleExport" />
+        <el-button class="fs20" type="text" @click="handleExport">
+          <Icon icon="Download" color="#bbb" />
+        </el-button>
       </el-tooltip>
-      <el-dropdown :offset="0" @command="(value) => handleEmit('tableSize', value)">
-        <el-button v-color="'#bbb'" class="fs20 mx10" type="text" icon="yn-icon-colum-height" />
+      <el-dropdown :offset="0" size="default" @command="(value) => handleEmit('tableSize', value)">
+        <el-button class="fs20 mx10" type="text">
+          <Icon icon="Sort" color="#bbb" />
+        </el-button>
         <template #dropdown>
-          <el-dropdown-menu>
+          <el-dropdown-menu split-button>
             <el-dropdown-item
               v-for="{ label, value } in size"
               :key="value"
-              :class="{ active: modelValue.tableSize === value }"
+              :class="['123456', { active: modelValue.tableSize === value }]"
               :command="value"
             >
               {{ label }}
@@ -23,7 +27,9 @@
       </el-dropdown>
       <el-popover width="300px" :offset="0" placement="bottom" trigger="hover">
         <template #reference>
-          <el-button v-color="'#bbb'" class="fs20" type="text" icon="el-icon-setting" />
+          <el-button class="fs20" type="text">
+            <Icon icon="Setting" color="#bbb" />
+          </el-button>
         </template>
         <div class="tools-header px10 df-sb-cc">
           <span>
@@ -91,7 +97,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue']);
 
-const size = [{ label: '默认', value: 'medium' }, { label: '中等', value: 'small' }, { label: '紧凑', value: 'mini' }];
+const size = [{ label: '宽松', value: 'large' }, { label: '中等', value: 'default' }, { label: '紧凑', value: 'small' }];
 
 // 记录初始传入的状态，用于重置设置
 const defaultValue = { ...props.modelValue };
@@ -110,6 +116,16 @@ const checkedOpts = computed({
   get: () => props.modelValue.checkedOpts,
   set: (value) => emit('update:modelValue', { ...props.modelValue, checkedOpts: value }),
 });
+
+const tableSize = computed({
+  get: () => {
+    console.log(props.modelValue);
+    return props.modelValue.tableSize;
+  },
+  set: (value) => emit('update:modelValue', { ...props.modelValue, tableSize: value }),
+});
+
+console.log(tableSize.value);
 
 const state = reactive({
   showExportSet: false,

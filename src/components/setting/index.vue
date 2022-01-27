@@ -1,7 +1,7 @@
 <template>
   <el-tooltip effect="light" content="设置" placement="bottom">
     <div class="header-menu-btn" @click="openDeawer">
-      <i class="el-icon-setting" />
+      <Icon icon="Setting" />
     </div>
   </el-tooltip>
   <el-drawer
@@ -11,9 +11,8 @@
     destroy-on-close
     :size="360"
     direction="rtl"
-    custom-class="config-drawer"
   >
-    <div v-for="(t, i) in list" :key="i" class="config-group">
+    <div v-for="(t, i) in list" :key="i" class="config-group pb20">
       <el-divider>{{ t.title }}</el-divider>
       <component :is="t.component" />
     </div>
@@ -66,15 +65,6 @@ function openDeawer() {
 <style lang="scss" scoped>
 :deep(.el-divider__text) {
   font-size: 16px;
-  padding-bottom: 12px;
-}
-.config-group {
-  padding-bottom: 20px;
-}
-</style>
-
-<style>
-.config-drawer .el-drawer__body {
-  padding: 0 15px;
+  padding-bottom: 10px;
 }
 </style>

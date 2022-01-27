@@ -1,5 +1,5 @@
 <template>
-  <el-button v-if="button" size="mini" icon="el-icon-switch-button" @click="handleLogout" />
+  <el-button v-if="button" size="small" icon="el-icon-switch-button" @click="handleLogout" />
   <span v-else @click="handleLogout">
     <slot />
   </span>

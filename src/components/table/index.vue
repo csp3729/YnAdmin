@@ -13,18 +13,19 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column v-if="state.tools.showExport && tools" key="select" type="selection" align="center" />
-      <el-table-column v-if="state.tools.showIndex" key="sort" type="index" width="50px" label="序号" align="center" />
+      <el-table-column v-if="state.tools.showIndex" key="sort" type="index" :width="60" label="序号" align="center" />
       <template v-for="(col, idx) in columns" :key="idx">
         <el-table-column
           v-if="isHide(state.tools.checkedOpts, col)"
           :label="col.label"
-          :width="col.width || ((col.prop || col.slot) === 'oper' ? 200 : '')"
+          :width="col.width"
           :align="col.align"
           :sortable="col.sortable"
           :sort-method="col.sortMethod"
           :show-overflow-tooltip="col.tooltip"
           :resizable="col.resizable || false"
         >
+          <!-- || ((col.prop || col.slot) === 'oper' ? 200 : '') -->
           <template #default="scope">
             <slot v-if="col.slot" :name="col.slot" :column="scope.column" :row="scope.row" :index="scope.$index" />
             <template v-else-if="col.prop === 'oper'">
@@ -33,7 +34,7 @@
                   v-for="(btn, i) in col.oper"
                   :key="i"
                   :class="btn.class"
-                  size="mini"
+                  size="small"
                   :type="btn.type"
                   :icon="btn.icon"
                   :plain="btn.plain"
@@ -45,15 +46,21 @@
                 </el-button>
               </template>
               <template v-else>
-                <el-button v-if="state.edits[scope.$index]" type="primary" size="mini" icon="el-icon-finished" @click="onSave(scope)">
+                <el-button
+                  v-if="state.edits[scope.$index]"
+                  type="primary"
+                  :size="state.tools.tableSize"
+                  icon="el-icon-finished"
+                  @click="onSave(scope)"
+                >
                   保存
                 </el-button>
-                <el-button v-else type="success" size="mini" icon="el-icon-edit" @click="onEdit(scope)">编辑</el-button>
-                <el-button type="danger" size="mini" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
+                <el-button v-else type="primary" :size="state.tools.tableSize" icon="" @click="onEdit(scope)">编辑</el-button>
+                <el-button type="danger" :size="state.tools.tableSize" icon="el-icon-delete" @click="onDelete(scope)">删除</el-button>
               </template>
             </template>
             <!-- <template v-else-if="edit && col.edit && state.edits[scope.$index]">
-              <el-input v-if="col.edit.type === 'input'" v-model="state.edits[scope.$index][col.prop]" size="mini" clearable />
+              <el-input v-if="col.edit.type === 'input'" v-model="state.edits[scope.$index][col.prop]" size="small" clearable />
               <el-select v-if="col.edit.type === 'select'" v-model="state.edits[scope.$index][col.prop]" clearable>
                 <el-option v-for="(t, i) in col.edit.items" :key="i" :label="t.label" :value="t.value" />
               </el-select>

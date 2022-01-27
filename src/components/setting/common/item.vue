@@ -8,14 +8,14 @@
         v-model="value"
         v-bind="$attrs"
         :disabled="isDisabled"
-        size="mini"
+        size="small"
       />
       <el-select
         v-if="type === 'select'"
         v-model="value"
         v-bind="$attrs"
         :disabled="isDisabled"
-        size="mini"
+        size="small"
       >
         <el-option
           v-for="item in options"
@@ -29,7 +29,7 @@
         v-model="value"
         v-bind="$attrs"
         :disabled="isDisabled"
-        size="mini"
+        size="small"
         controls-position="right"
       />
     </div>
@@ -97,7 +97,7 @@ const isDisabled = computed(props.disabled);
     text-align: right;
   }
 
-  :deep(.el-input-number--mini) {
+  :deep(.el-input-number--small) {
     width: 120px;
     height: 28px;
   }

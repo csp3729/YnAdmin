@@ -3,7 +3,7 @@
     <template #reference>
       <div class="header-menu-btn" @click="goRouterMsg">
         <el-badge is-dot class="item" type="danger">
-          <i class="el-icon-bell" />
+          <Icon icon="Bell" />
         </el-badge>
       </div>
     </template>

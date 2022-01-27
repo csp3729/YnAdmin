@@ -1,7 +1,7 @@
 <template>
   <div :class="['collapse-btn', { 'is-button': button } ]" @click="handleCollapse">
-    <i v-if="button" :class="`el-icon-d-arrow-${isCollapse ? 'right' : 'left'}`" />
-    <i v-else :class="`el-icon-s-${isCollapse ? 'unfold' : 'fold'}`" />
+    <Icon v-if="button" :icon="isCollapse ? 'DArrowRight' : 'DArrowLeft'" />
+    <Icon v-else :icon="isCollapse ? 'Expand' : 'Fold'" />
   </div>
 </template>
 
@@ -23,18 +23,17 @@ function handleCollapse() {
 
 <style lang="scss" scoped>
 .collapse-btn {
+  flex: 1;
   font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   &.is-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 42px;
     &:hover {
       background: $theme-color;
-      i {
-        color: #FFF;
-      }
+      color: #FFF;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <el-tooltip effect="light" content="锁屏" placement="bottom">
     <div class="header-menu-btn" @click="showSetLock">
-      <i class="el-icon-lock" />
+      <Icon icon="Lock" />
     </div>
   </el-tooltip>
   <el-dialog v-model="state.visible" width="600px" title="设置锁屏密码" append-to-body destroy-on-close>

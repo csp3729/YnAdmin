@@ -5,7 +5,7 @@
       <el-input v-model="password" placeholder="请输入锁屏密码" type="password" @keyup.enter="handleUnlock">
         <template #append>
           <!-- <div style="width: 50px;"> -->
-          <el-button size="mini" icon="el-icon-unlock" @click="handleUnlock" />
+          <el-button size="small" icon="el-icon-unlock" @click="handleUnlock" />
           <YnLogout button />
           <!-- </div> -->
         </template>

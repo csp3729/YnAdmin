@@ -3,6 +3,7 @@ module.exports = {
   env: {
     browser: true, // browser global variables
     es2021: true, // adds all ECMAScript 2021 globals and automatically sets the ecmaVersion parser option to 12.
+    // 'vue/setup-compiler-macros': true,
   },
   extends: ['plugin:vue/vue3-recommended', 'airbnb-base'],
   parserOptions: {
@@ -34,7 +35,7 @@ module.exports = {
     // 'class-methods-use-this': 'off', // 自己加的，忘记是啥了
   },
   overrides: [{
-    files: ['*.vue', '*.js'],
+    files: ['*.vue'],
     rules: {
       // 这里写覆盖vue文件的规则
       'vue/max-attributes-per-line': 'off', // 关闭强制标签属性换行

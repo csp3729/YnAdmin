@@ -6,7 +6,7 @@
       <SearchForm v-model="state.form" :items="items" :label-width="state.setForm.width" :open-type="state.setForm.openType" />
     </div>
     <p class="actions">试试修改参数</p>
-    <el-form class="pa5" :model="state.setForm" size="mini" inline>
+    <el-form class="pa5" :model="state.setForm" size="small" inline>
       <el-form-item v-for="({label, type, model, options} , index) in formItems" :key="index" :label="label">
         <el-input-number v-if="type === 'number'" v-model="state.setForm[model]" />
         <el-select v-if="type === 'select'" v-model="state.setForm[model]">

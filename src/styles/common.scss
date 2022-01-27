@@ -68,14 +68,14 @@
   background: #fff;
 }
 
-/* icon 扩展 */
-[class^="yn-icon-"], [class*=" yn-icon-"] {
-  font-family: "ynfont" !important;
-  // font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// /* icon 扩展 */
+// [class^="yn-icon-"], [class*=" yn-icon-"] {
+//   font-family: "ynfont" !important;
+//   // font-size: 16px;
+//   font-style: normal;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
 
 @for $i from 0 through 100 {
   // padding

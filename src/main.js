@@ -23,7 +23,7 @@ import App from './App.vue';
 
 createApp(App)
   .provide('http', apis)
-  .use(ElementPlus, { size: 'small' })
+  .use(ElementPlus, { size: 'default' })
   .use(comps)
   .use(directives)
   .use(store)

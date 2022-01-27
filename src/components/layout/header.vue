@@ -6,7 +6,7 @@
         <h2 class="mr30">YnAdmin</h2>
       </template>
     </div>
-    <div class="header-center flex1">
+    <div class="header-center flex-1">
       <slot />
     </div>
     <div class="header-right df-cc fjc-fe ml30">
@@ -15,8 +15,8 @@
       <YnScreen />
       <el-dropdown class="df-cc ml10 pointer avatar" trigger="click">
         <div class="df fai-c">
-          <el-avatar size="small" icon="el-icon-s-custom" />
-          <span class="px10">{{ $store.getters.userinfo.userName }}</span>
+          <el-avatar :size="30" />
+          <span class="px8">{{ $store.getters.userinfo.userName }}</span>
         </div>
         <template #dropdown>
           <el-dropdown-menu>

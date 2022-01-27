@@ -4,7 +4,8 @@
     <el-button type="primary" @click="send2">桌面通知</el-button>
     <el-button type="primary" @click="send3">根据状态通知</el-button>
     <div>
-      <el-switch v-model="value1" interior active-text="是" inactive-text="否" />
+      <el-switch v-model="value1" interior active-text="是是" inactive-text="否否" />
+      <el-switch v-model="value1" inline-prompt active-text="是" inactive-text="否" />
     </div>
   </div>
 </template>

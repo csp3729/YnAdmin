@@ -123,7 +123,23 @@
 }
 
 @for $i from 1 through 12 {
-  .flex#{$i} {
+  .flex-#{$i} {
     flex: #{$i};
   }
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="search-form">
     <div class="search-content df" :style="{ height: height }">
-      <el-form class="df flex1 fw-w" :model="form" :label-width="labelWidth">
+      <el-form class="df flex-1 fw-w" :model="form" :label-width="labelWidth">
         <el-form-item v-for="(item, index) in items" :key="index" class="search-item" :label="item.label">
           <slot v-if="item.slot" :name="item.slot" />
           <el-select
@@ -45,7 +45,7 @@
             clearable
           />
         </el-form-item>
-        <div v-if="more && state.open" class="search-btns flex1 tr">
+        <div v-if="more && state.open" class="search-btns flex-1 tr">
           <el-button v-if="more && openType === 'button'" @click="handleOpen">收起</el-button>
           <el-button @click="clear">清空</el-button>
           <el-button type="primary" @click="handleSearch">搜索</el-button>
@@ -58,7 +58,7 @@
       </div>
     </div>
     <span v-if="more && openType !== 'button'" class="search-more-button pointer" @click="handleOpen">
-      <i :class="`el-icon-d-arrow-${state.open?'left':'right'}`" />
+      <Icon :icon="state.open ? 'ArrowUpBold' : 'ArrowDownBold'" />
     </span>
   </div>
 </template>
@@ -100,7 +100,7 @@ const height = computed(() => {
   if (more.value && state.open) {
     line = Math.ceil(props.items.length / 5) + (props.items.length % 5 === 0 ? 1 : 0);
   }
-  return `${line * 51}px`;
+  return `${line * 42}px`;
 });
 
 const form = computed({
@@ -150,7 +150,7 @@ function handleSearch() {
     left: 50%;
     bottom: 0px;
     z-index: 1001;
-    transform: translate(-50%, 29%) rotate(90deg);
+    transform: translate(-50%, 29%);
     color: $theme-color;
     animation: shake 1.5s infinite;
   }

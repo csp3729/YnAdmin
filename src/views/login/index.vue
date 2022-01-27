@@ -24,18 +24,18 @@
       <el-form ref="loginForm" :model="state.form" :rules="rules">
         <template v-if="state.actinveName === 'user'">
           <el-form-item prop="account">
-            <el-input v-model="state.form.account" prefix-icon="el-icon-user" placeholder="请输入用户名/手机号" />
+            <el-input v-model="state.form.account" :prefix-icon="User" placeholder="请输入用户名/手机号" />
           </el-form-item>
           <el-form-item prop="password">
-            <el-input v-model="state.form.password" type="password" show-password prefix-icon="el-icon-lock" placeholder="请输入密码" />
+            <el-input v-model="state.form.password" type="password" show-password :prefix-icon="Lock" placeholder="请输入密码" />
           </el-form-item>
         </template>
         <template v-else>
           <el-form-item prop="phone">
-            <el-input v-model="state.form.phone" prefix-icon="el-icon-user" placeholder="请输入手机号" />
+            <el-input v-model="state.form.phone" :prefix-icon="Iphone" placeholder="请输入手机号" />
           </el-form-item>
           <el-form-item prop="code">
-            <el-input v-model="state.form.code" maxlength="6" prefix-icon="el-icon-message" placeholder="请输入验证码">
+            <el-input v-model="state.form.code" maxlength="6" :prefix-icon="Message" placeholder="请输入验证码">
               <template #append>
                 <span :class="['msg-text', { disabled: state.sending || state.time }]" @click="handleSend">
                   {{ state.time? `${state.time}秒后重发`:'发送验证码' }}
@@ -45,7 +45,7 @@
           </el-form-item>
         </template>
         <el-form-item>
-          <div class="df-sb-cc">
+          <div class="flex-1 df-sb-cc">
             <el-checkbox v-model="state.record">记住账号</el-checkbox>
             <span v-if="state.actinveName === 'user'" class="login-text-btn" @click="handleForget">忘记密码</span>
           </div>
@@ -63,9 +63,13 @@ import {
   reactive, inject, ref, unref, nextTick,
 } from 'vue';
 import md5 from 'js-md5';
+import { ElMessage, ElMessageBox } from 'element-plus';
+import {
+  User, Iphone, Lock, Message,
+} from '@element-plus/icons-vue';
+
 import { store, router } from '@uts/instance';
 import { encrypt, decrypt, local } from '@uts';
-import { ElMessage, ElMessageBox } from 'element-plus';
 
 const http = inject('http');
 
@@ -212,7 +216,7 @@ function handleEnv() {
   display: block;
   width: 60px;
   font-size: 12px;
-  line-height: 24px;
+  // line-height: 24px;
   text-align: center;
   cursor: pointer;
   &.disabled {
